@@ -98,6 +98,7 @@
     let dealerHand = [];
     let bet = 0;
     let dealerPoints = 0;
+    let timesSplit = 0;
     document.getElementById("placeBet").disabled = false;
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
@@ -235,10 +236,10 @@
                 { card: '🃎 ', point: 10, additionalpoint: 0 },
                 { card: '🃞 ', point: 10, additionalpoint: 0 }];
         }
-        drawCard(yourHand);
-        drawCard(yourHand);
-        drawCard(dealerHand);
-        drawCard(dealerHand);
+        drawCard(yourHand, 1);
+        drawCard(yourHand, 1);
+        drawCard(dealerHand, 1);
+        drawCard(dealerHand, 1);
         document.getElementById("yourHand").innerHTML = yourHand[0].card + yourHand[1].card;
         document.getElementById("dealerHand").innerHTML = "🂠 " + dealerHand[0].card;
         if (calculateTotalPoints(yourHand) == 21 && calculateTotalPoints(dealerHand) == 21) {
@@ -287,7 +288,7 @@
     function hit() {
         document.getElementById("double").disabled = true;
         document.getElementById("split").disabled = true;
-        drawCard(yourHand);
+        drawCard(yourHand, 1);
         document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
         if (calculateTotalPoints(yourHand) > 21) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
@@ -297,7 +298,7 @@
     }
 
     function dealerHit() {
-        drawCard(dealerHand);
+        drawCard(dealerHand, 1);
         document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
@@ -342,6 +343,7 @@
         document.getElementById("stand").disabled = isFinished;
         document.getElementById("double").disabled = isFinished;
         document.getElementById("split").disabled = isFinished;
+        timesSplit = 0;
     }
     function double() {
         bet = bet * 2;
@@ -350,22 +352,21 @@
             stand();
         }
     }
-    function drawCard(hand) {
+    function drawCard(hand,handNumber) {
         let randomCard = Math.floor(Math.random() * deck.length);
         hand.push(deck[randomCard]);
         deck.splice(randomCard, 1);
+        hand.handNo = handNumber;
     }
     function split() {
+        timesSplit += 1;
         document.getElementById("split").disabled = true;
-        tempHand = [];
-        tempHand.push(yourHand[0]);
-        yourHand.splice(0, 1);
+        yourHand[0].handNo = timesSplit;
         createNewHand();
-        return tempHand;
     }
     function createNewHand() {
         const newHand = document.createElement("div");
-        const newCards = document.createTextNode(tempHand[0].card);
+        const newCards = document.createTextNode(yourHand[0]);
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
         document.body.insertBefore(newHand, currentHand);
