@@ -361,6 +361,7 @@
         tempHand.push(yourHand[0]);
         yourHand.splice(0, 1);
         createNewHand();
+        return tempHand;
     }
     function createNewHand() {
         const newHand = document.createElement("div");
@@ -368,6 +369,7 @@
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
         document.body.insertBefore(newHand, currentHand);
+        newHand.style.fontSize = "100px";
     }
 //thanks g.
 </script>
