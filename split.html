@@ -360,6 +360,14 @@
         let tempHand = [];
         tempHand.push(yourHand[0]);
         yourHand.splice(0, 1);
+        createNewHand();
+    }
+    function createNewHand() {
+        const newHand = document.createElement("div");
+        const newCards = document.createTextNode(tempHand[0].card);
+        newHand.appendChild(newCards);
+        const currentHand = document.getElementById("yourHand");
+        document.body.insertBefore(newHand, currentHand);
     }
 //thanks g.
 </script>
