@@ -366,7 +366,7 @@
     }
     function createNewHand() {
         const newHand = document.createElement("div");
-        const newCards = document.createTextNode("yourHand[0].card");
+        const newCards = document.createTextNode(yourHand[0].card);
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
         const parentNode = document.getElementsByClassName("row col-12-xs");
