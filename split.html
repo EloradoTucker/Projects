@@ -86,6 +86,8 @@
         <button id="double" onClick="double()">
             Double Down
         </button>
+        <button id="split' onClick="split()">
+        </button>
     </div>
 </body>
 
@@ -253,9 +255,12 @@
             refresh('Dealer Wins!', true);
             return;
         }
+        document.getElementById("split").disable = true;
         document.getElementById("hit").disabled = false;
         document.getElementById("stand").disabled = false;
         document.getElementById("double").disabled = false;
+        if (yourHand[0].point == yourHand[1].point) {
+            document.getElementById("split").disabled = false;
     }
 
 
@@ -343,6 +348,12 @@
         let randomCard = Math.floor(Math.random() * deck.length);
         hand.push(deck[randomCard]);
         deck.splice(randomCard, 1);
+    }
+    function split() {
+        let tempHand = [];
+        tempHand.push(yourHand[0]);
+        yourHand.splice(0, 1);
+        
     }
 //thanks g.
 </script>
