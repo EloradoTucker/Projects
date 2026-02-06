@@ -369,7 +369,8 @@
         const newCards = document.createTextNode(yourHand[0]);
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
-        document.insertBefore(newHand, currentHand);
+        const parentNode = document.getElementsByClassName("row col-12-xs");
+        currentHand.parentNode.insertBefore(newHand, currentHand);
         newHand.style.fontSize = "100px";
     }
 //thanks g.
