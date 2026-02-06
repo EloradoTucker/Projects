@@ -369,7 +369,7 @@
         const newCards = document.createTextNode(yourHand[0]);
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
-        document.body.insertBefore(newHand, currentHand);
+        document.insertBefore(newHand, currentHand);
         newHand.style.fontSize = "100px";
     }
 //thanks g.
