@@ -102,6 +102,7 @@
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
     document.getElementById("double").disabled = true;
+    document.getElementById("split").disabled = true;
     document.getElementById("money").innerHTML = money;
     document.getElementById("placeBet").addEventListener("click", drawCards);
     let deck = [
@@ -257,14 +258,16 @@
             refresh('Dealer Wins!', true);
             return;
         }
-        document.getElementById("split").disable = true;
+        if (yourHand[0].point == yourHand[1].point) {
+            document.getElementById("split").disabled = false;
+        }
+        else {
+            document.getElementById("split").disabled = true;
+        }
         document.getElementById("hit").disabled = false;
         document.getElementById("stand").disabled = false;
         document.getElementById("double").disabled = false;
-        if (yourHand[0].point == yourHand[1].point) {
-            document.getElementById("split").disabled = false;
-    }
-
+        
 
     function calculateTotalPoints(hand) {
         let totalPoints = 0;
@@ -284,6 +287,7 @@
 
     function hit() {
         document.getElementById("double").disabled = true;
+        document.getElementById("split").disabled = true;
         drawCard(yourHand);
         document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
         if (calculateTotalPoints(yourHand) > 21) {
@@ -338,6 +342,7 @@
         document.getElementById("hit").disabled = isFinished;
         document.getElementById("stand").disabled = isFinished;
         document.getElementById("double").disabled = isFinished;
+        document.getElementById("split").disabled = isFinished;
     }
     function double() {
         bet = bet * 2;
@@ -352,6 +357,7 @@
         deck.splice(randomCard, 1);
     }
     function split() {
+        document.getElementById("split").disabled = true;
         let tempHand = [];
         tempHand.push(yourHand[0]);
         yourHand.splice(0, 1);
