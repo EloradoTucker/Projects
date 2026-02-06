@@ -366,12 +366,17 @@
     }
     function createNewHand() {
         const newHand = document.createElement("div");
-        const newCards = document.createTextNode(yourHand[0]);
+        const newCards = document.createTextNode("yourHand[0].card");
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
         const parentNode = document.getElementsByClassName("row col-12-xs");
         currentHand.parentNode.insertBefore(newHand, currentHand);
         newHand.style.fontSize = "100px";
+        sortCards(yourHand, 1);
+    }
+    function sortCards(hand,cardNumber) {
+        const result = yourHand.filter(obj => obj.handNo === cardNumber);
+        document.getElementById(hand).innerHTML = result;
     }
 //thanks g.
 </script>
