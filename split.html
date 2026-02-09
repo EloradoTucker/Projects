@@ -98,7 +98,7 @@
     let dealerHand = [];
     let bet = 0;
     let dealerPoints = 0;
-    let timesSplit = 0;
+    let timesSplit = 1;
     document.getElementById("placeBet").disabled = false;
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
@@ -363,7 +363,7 @@
         document.getElementById("split").disabled = true;
         yourHand[0].handNo = timesSplit;
         createNewHand();
-        sortCards(yourHand, 0);
+        sortCards(yourHand, 1);
     }
     function createNewHand() {
         const newHand = document.createElement("div");
