@@ -377,7 +377,7 @@
         sortCards(yourHand, 1);
     }
     function sortCards(hand,cardNumber) {
-        const result = yourHand.filter(obj => obj.handNo === cardNumber);
+        const result = yourHand.filter(hand => hand.handNo === cardNumber);
         document.getElementById(hand).innerHTML = result;
     }
 //thanks g.
