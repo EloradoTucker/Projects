@@ -400,7 +400,7 @@
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
         const parentNode = document.getElementsByClassName("row col-12-xs");
-        currentHand.parentNode.insertAfter(newHand, currentHand);
+        currentHand.parentNode.insertBefore(newHand, currentHand.nextSibling);
         newHand.style.fontSize = "100px";
         newHand.classList.add('col-7');
         newHand.id = "yourHand" + timesSplit;
