@@ -290,7 +290,6 @@
     else {
         const splitHand = hand.filter(item => item.handNo === split);
         let totalPoints = 0;
-        if (timesSplit === 1) {
         splitHand.forEach(x => {
             totalPoints += x.point;
         })
@@ -303,7 +302,7 @@
             }
         })
         return totalPoints;
-    }
+    
     }
 }
 
