@@ -363,7 +363,7 @@
         document.getElementById("split").disabled = true;
         yourHand[0].handNo = timesSplit;
         createNewHand();
-        sortCards(yourHand, 1);
+        sortCards(timesSplit);
     }
     function createNewHand() {
         const newHand = document.createElement("div");
@@ -374,12 +374,12 @@
         currentHand.parentNode.insertBefore(newHand, currentHand);
         newHand.style.fontSize = "100px";
         newHand.classList.add('col-7');
-        sortCards(yourHand, 1);
     }
-    function sortCards(hand,cardNumber) {
-        const result = yourHand.filter(hand => hand.handNo === cardNumber);
-        document.getElementById(hand).innerHTML = result;
+    function sortCards(cardNumber) {
+        const sortedHand = yourHand.filter(item => item.handNo === cardNumber);
+        document.getElementById("yourHand") = sortedHand;
     }
+
 //thanks g.
 </script>
 </html>
