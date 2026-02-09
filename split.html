@@ -356,7 +356,7 @@
         let randomCard = Math.floor(Math.random() * deck.length);
         hand.push(deck[randomCard]);
         deck.splice(randomCard, 1);
-        hand.handNo = handNumber;
+        hand[hand.length-1].handNo = handNumber;
     }
     function split() {
         timesSplit += 1;
