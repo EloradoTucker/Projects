@@ -99,6 +99,7 @@
     let bet = 0;
     let dealerPoints = 0;
     let timesSplit = 1;
+    let handOrder = 1;
     document.getElementById("placeBet").disabled = false;
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
@@ -269,8 +270,9 @@
         document.getElementById("double").disabled = false;
     }
 
-    function calculateTotalPoints(hand) {
+    function calculateTotalPoints(hand,split) {
         let totalPoints = 0;
+        if (timesSplit === 1) {
         hand.forEach(x => {
             totalPoints += x.point;
         })
@@ -284,13 +286,38 @@
         })
         return totalPoints;
     }
+    else {
+        const splitHand = hand.filter(item => item.handNo === split);
+        let totalPoints = 0;
+        if (timesSplit === 1) {
+        splitHand.forEach(x => {
+            totalPoints += x.point;
+        })
+        splitHand.forEach(x => {
+            if (totalPoints + x.additionalpoint > 21) {
+                return totalPoints;
+            }
+            else {
+                totalPoints += x.additionalpoint;
+            }
+        })
+        return totalPoints;
+    }
+    }
+}
 
     function hit() {
         document.getElementById("double").disabled = true;
         document.getElementById("split").disabled = true;
         drawCard(yourHand, 1);
-        document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
-        if (calculateTotalPoints(yourHand) > 21) {
+        yourHand[yourHand.length-1].handNo = handOrder;
+        if (handOrder === 1) {
+            document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
+        }
+        else {
+            document.getElementById('yourHand' + handOrder).innerHTML += yourHand[yourHand.length - 1].card;
+        }
+        if (calculateTotalPoints(yourHand, handOrder) > 21) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             money -= bet;
             refresh('You Busted!', true);
@@ -343,7 +370,8 @@
         document.getElementById("stand").disabled = isFinished;
         document.getElementById("double").disabled = isFinished;
         document.getElementById("split").disabled = isFinished;
-        timesSplit = 0;
+        timesSplit = 1;
+        handOrder = 1;
     }
     function double() {
         bet = bet * 2;
@@ -364,6 +392,7 @@
         yourHand[0].handNo = timesSplit;
         createNewHand();
         sortCards(timesSplit-1);
+        document.getElementById("yourBet").innerHTML = "Your bet: $" + bet +" x" + timesSplit;
     }
     function createNewHand() {
         const newHand = document.createElement("div");
@@ -371,9 +400,10 @@
         newHand.appendChild(newCards);
         const currentHand = document.getElementById("yourHand");
         const parentNode = document.getElementsByClassName("row col-12-xs");
-        currentHand.parentNode.insertBefore(newHand, currentHand);
+        currentHand.parentNode.insertAfter(newHand, currentHand);
         newHand.style.fontSize = "100px";
         newHand.classList.add('col-7');
+        newHand.id = "yourHand" + timesSplit;
     }
     function sortCards(cardNumber) {
         const sortedHand = yourHand.filter(item => item.handNo === cardNumber);
