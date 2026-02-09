@@ -372,6 +372,7 @@
         const parentNode = document.getElementsByClassName("row col-12-xs");
         currentHand.parentNode.insertBefore(newHand, currentHand);
         newHand.style.fontSize = "100px";
+        newHand.classList.add('col-7');
         sortCards(yourHand, 1);
     }
     function sortCards(hand,cardNumber) {
