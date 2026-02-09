@@ -377,7 +377,7 @@
     }
     function sortCards(cardNumber) {
         const sortedHand = yourHand.filter(item => item.handNo === cardNumber);
-        document.getElementById("yourHand") = sortedHand;
+        document.getElementById("yourHand").innerHTML = sortedHand;
     }
 
 //thanks g.
