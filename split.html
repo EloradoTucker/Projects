@@ -72,7 +72,7 @@
                     </label>
                 </div>
 
-                
+
                 <div id="dealerHand" class="mt-3"></div>
             </div>
         </div>
@@ -271,46 +271,46 @@
         document.getElementById("double").disabled = false;
     }
 
-    function calculateTotalPoints(hand,split) {
+    function calculateTotalPoints(hand, split) {
         let totalPoints = 0;
         if (timesSplit === 1) {
-        hand.forEach(x => {
-            totalPoints += x.point;
-        })
-        hand.forEach(x => {
-            if (totalPoints + x.additionalpoint > 21) {
-                return totalPoints;
-            }
-            else {
-                totalPoints += x.additionalpoint;
-            }
-        })
-        return totalPoints;
+            hand.forEach(x => {
+                totalPoints += x.point;
+            })
+            hand.forEach(x => {
+                if (totalPoints + x.additionalpoint > 21) {
+                    return totalPoints;
+                }
+                else {
+                    totalPoints += x.additionalpoint;
+                }
+            })
+            return totalPoints;
+        }
+        else {
+            const splitHand = hand.filter(item => item.handNo === split);
+            let totalPoints = 0;
+            splitHand.forEach(x => {
+                totalPoints += x.point;
+            })
+            splitHand.forEach(x => {
+                if (totalPoints + x.additionalpoint > 21) {
+                    return totalPoints;
+                }
+                else {
+                    totalPoints += x.additionalpoint;
+                }
+            })
+            return totalPoints;
+
+        }
     }
-    else {
-        const splitHand = hand.filter(item => item.handNo === split);
-        let totalPoints = 0;
-        splitHand.forEach(x => {
-            totalPoints += x.point;
-        })
-        splitHand.forEach(x => {
-            if (totalPoints + x.additionalpoint > 21) {
-                return totalPoints;
-            }
-            else {
-                totalPoints += x.additionalpoint;
-            }
-        })
-        return totalPoints;
-    
-    }
-}
 
     function hit() {
         document.getElementById("double").disabled = true;
         document.getElementById("split").disabled = true;
         drawCard(yourHand, 1);
-        yourHand[yourHand.length-1].handNo = handOrder;
+        yourHand[yourHand.length - 1].handNo = handOrder;
         if (handOrder === 1) {
             document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
         }
@@ -362,16 +362,27 @@
         }
     }
     function refresh(betResult, isFinished) {
-        document.getElementById('yourBet').innerHTML = betResult;
-        document.getElementById("money").innerHTML = money;
-        document.getElementById("bet").value = "";
-        document.getElementById("placeBet").disabled = !isFinished;
-        document.getElementById("hit").disabled = isFinished;
-        document.getElementById("stand").disabled = isFinished;
-        document.getElementById("double").disabled = isFinished;
-        document.getElementById("split").disabled = isFinished;
-        timesSplit = 1;
-        handOrder = 1;
+        if (handOrder === timesSplit) {
+            document.getElementById('yourBet').innerHTML = betResult;
+            document.getElementById("money").innerHTML = money;
+            document.getElementById("bet").value = "";
+            document.getElementById("placeBet").disabled = !isFinished;
+            document.getElementById("hit").disabled = isFinished;
+            document.getElementById("stand").disabled = isFinished;
+            document.getElementById("double").disabled = isFinished;
+            document.getElementById("split").disabled = isFinished;
+            timesSplit = 1;
+            handOrder = 1;
+        }
+        else {
+            document.getElementById("money").innerHTML = money;
+            document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + timesSplit - handOrder;
+            const x = document.getElementById("yourHand");
+            x.style.color = "darkgray";
+            const y = document.getElementById("yourHand" + (handOrder + 1));
+            y.style.color = "black"
+            handOrder += 1;
+         }
     }
     function double() {
         bet = bet * 2;
@@ -380,19 +391,19 @@
             stand();
         }
     }
-    function drawCard(hand,handNumber) {
+    function drawCard(hand, handNumber) {
         let randomCard = Math.floor(Math.random() * deck.length);
         hand.push(deck[randomCard]);
         deck.splice(randomCard, 1);
-        hand[hand.length-1].handNo = handNumber;
+        hand[hand.length - 1].handNo = handNumber;
     }
     function split() {
         timesSplit += 1;
         document.getElementById("split").disabled = true;
         yourHand[0].handNo = timesSplit;
         createNewHand();
-        sortCards(timesSplit-1);
-        document.getElementById("yourBet").innerHTML = "Your bet: $" + bet +" x" + timesSplit;
+        sortCards(timesSplit - 1);
+        document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + timesSplit;
     }
     function createNewHand() {
         const newHand = document.createElement("div");
@@ -402,6 +413,7 @@
         const parentNode = document.getElementsByClassName("col-6");
         currentHand.parentNode.insertBefore(newHand, currentHand.nextSibling);
         newHand.style.fontSize = "100px";
+        newHand.style.color = "darkgray";
         newHand.classList.add('mt-3');
         newHand.id = "yourHand" + timesSplit;
     }
@@ -410,6 +422,7 @@
         document.getElementById("yourHand").innerHTML = sortedHand[0].card;
     }
 
-//thanks g.
+    //thanks g.
 </script>
+
 </html>
