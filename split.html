@@ -376,7 +376,7 @@
         }
         else {
             document.getElementById("money").innerHTML = money;
-            document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + timesSplit - handOrder;
+            document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + (timesSplit - handOrder);
             const x = document.getElementById("yourHand");
             x.style.color = "darkgray";
             const y = document.getElementById("yourHand" + (handOrder + 1));
