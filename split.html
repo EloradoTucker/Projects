@@ -273,7 +273,7 @@
 
     function calculateTotalPoints(hand, split) {
         let totalPoints = 0;
-        if (timesSplit === 1) {
+        if (timesSplit === 1 || hand === dealerHand) {
             hand.forEach(x => {
                 totalPoints += x.point;
             })
@@ -336,29 +336,38 @@
         return dealerPoints;
     }
     function stand() {
-        document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
-        dealerPoints = calculateTotalPoints(dealerHand);
-        while (dealerPoints < 17) {
-            dealerHit();
+        if (handOrder === timesSplit) {
+            document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             dealerPoints = calculateTotalPoints(dealerHand);
-        }
-        if (dealerPoints > 21) {
-            return;
-        }
-        if (calculateTotalPoints(yourHand) > dealerPoints) {
-            money += bet;
-            refresh('You Win!', true);
-            return;
-        }
-        if (calculateTotalPoints(yourHand) == dealerPoints) {
-            refresh('Draw!', true);
-            return;
-        }
+            while (dealerPoints < 17) {
+                dealerHit();
+                dealerPoints = calculateTotalPoints(dealerHand);
+            }
+            if (dealerPoints > 21) {
+                return;
+            }
+            if (calculateTotalPoints(yourHand) > dealerPoints) {
+                money += bet;
+                refresh('You Win!', true);
+                return;
+            }
+            if (calculateTotalPoints(yourHand) == dealerPoints) {
+                refresh('Draw!', true);
+                return;
+            }
 
-        if (calculateTotalPoints(yourHand) < dealerPoints) {
-            money -= bet;
-            refresh('Dealer Wins!', true);
+            if (calculateTotalPoints(yourHand) < dealerPoints) {
+                money -= bet;
+                refresh('Dealer Wins!', true);
 
+            }
+        }
+        else {
+            const x = document.getElementById("yourHand");
+            x.style.color = "darkgray";
+            const y = document.getElementById("yourHand" + (handOrder + 1));
+            y.style.color = "black"
+            handOrder += 1;
         }
     }
     function refresh(betResult, isFinished) {
@@ -377,12 +386,18 @@
         else {
             document.getElementById("money").innerHTML = money;
             document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + (timesSplit - handOrder);
-            const x = document.getElementById("yourHand");
+            const x = [];
+            if (handOrder === 1) {
+                x = document.getElementById("yourHand");
+            }
+            else {
+                x = document.getElementById("yourHand" + handOrder);
+            }
             x.style.color = "darkgray";
             const y = document.getElementById("yourHand" + (handOrder + 1));
             y.style.color = "black"
             handOrder += 1;
-         }
+        }
     }
     function double() {
         bet = bet * 2;
