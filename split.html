@@ -386,7 +386,7 @@
         else {
             document.getElementById("money").innerHTML = money;
             document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + (timesSplit - handOrder);
-            const x = [];
+            var x;
             if (handOrder === 1) {
                 x = document.getElementById("yourHand");
             }
