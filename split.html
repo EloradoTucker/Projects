@@ -318,7 +318,9 @@
             document.getElementById('yourHand' + handOrder).innerHTML += yourHand[yourHand.length - 1].card;
         }
         if (calculateTotalPoints(yourHand, handOrder) > 21) {
+            if (handOrder === timesSplit) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
+            }
             money -= bet;
             refresh('You Busted!', true);
         }
