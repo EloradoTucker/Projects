@@ -347,6 +347,9 @@
         if (handOrder === timesSplit) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             dealerPoints = calculateTotalPoints(dealerHand);
+            let timesWon = 0;
+            let timesLost = 0;
+            let timesDrew = 0;
             while (dealerPoints < 17) {
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand);
@@ -354,21 +357,30 @@
             if (dealerPoints > 21) {
                 return;
             }
-            if (calculateTotalPoints(yourHand) > dealerPoints) {
-                money += bet;
-                refresh('You Win!', true);
+            for (i = 1; i > timesSplit || i === timesSplit ; i++) {
+
+                if (calculateTotalPoints(yourHand, i) > dealerPoints && liveHands.includes(i) === true) {
+                    money += bet;
+                    timesWon += 1;
+                }
                 return;
             }
-            if (calculateTotalPoints(yourHand) == dealerPoints) {
-                refresh('Draw!', true);
+            for (i = 1; i > timesSplit || i === timesSplit ; i++) {
+
+                if (calculateTotalPoints(yourHand, i) == dealerPoints && liveHands.includes(i) === true) {
+                    timesDrew += 1;
+                }
                 return;
             }
+            for (i = 1; i > timesSplit || i === timesSplit ; i++) {
 
-            if (calculateTotalPoints(yourHand) < dealerPoints) {
-                money -= bet;
-                refresh('Dealer Wins!', true);
-
+                if (calculateTotalPoints(yourHand, i) < dealerPoints && liveHands.includes(i) === true) {
+                    money -= bet;
+                    timesLost += 1;
+                }
+                return;
             }
+            refresh("Hands won: " + timesWon + " Hands lost:" + timesLost + " Hands drew: " + timesDrew, true);
         }
         else {
             const x = document.getElementById("yourHand");
