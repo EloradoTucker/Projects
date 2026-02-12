@@ -357,7 +357,7 @@
             if (dealerPoints > 21) {
                 return;
             }
-            for (i = 1; i > timesSplit || i === timesSplit ; i++) {
+            for (i = 1; i < timesSplit || i === timesSplit ; i++) {
 
                 if (calculateTotalPoints(yourHand, i) > dealerPoints && liveHands.includes(i) === true) {
                     money += bet;
@@ -365,14 +365,14 @@
                 }
                 return;
             }
-            for (i = 1; i > timesSplit || i === timesSplit ; i++) {
+            for (i = 1; i < timesSplit || i === timesSplit ; i++) {
 
                 if (calculateTotalPoints(yourHand, i) == dealerPoints && liveHands.includes(i) === true) {
                     timesDrew += 1;
                 }
                 return;
             }
-            for (i = 1; i > timesSplit || i === timesSplit ; i++) {
+            for (i = 1; i < timesSplit || i === timesSplit ; i++) {
 
                 if (calculateTotalPoints(yourHand, i) < dealerPoints && liveHands.includes(i) === true) {
                     money -= bet;
@@ -380,7 +380,7 @@
                 }
                 return;
             }
-            refresh("Hands won: " + timesWon + " Hands lost:" + timesLost + " Hands drew: " + timesDrew, true);
+            refresh("Hands won: " + timesWon + " Hands lost: " + timesLost + " Hands drew: " + timesDrew, true);
         }
         else {
             const x = document.getElementById("yourHand");
