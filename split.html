@@ -328,6 +328,9 @@
             if (index > -1) {
                 liveHands.splice(index, 1);
             }
+            if (liveHands.length > 0) {
+                stand(liveHands.length);
+            }
             refresh('You Busted!', true);
         }
     }
@@ -343,12 +346,15 @@
         }
         return dealerPoints;
     }
-    function stand() {
+    function stand(lost) {
         if (handOrder === timesSplit) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             dealerPoints = calculateTotalPoints(dealerHand);
             let timesWon = 0;
-            let timesLost = 0;
+            if (lost != null) {
+                let timesLost = timesSplit - lost;
+            }
+            else { let timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
                 dealerHit();
@@ -357,28 +363,28 @@
             if (dealerPoints > 21) {
                 return;
             }
-            for (i = 1; i < timesSplit || i === timesSplit ; i++) {
+            for (i = 1; i < timesSplit || i === timesSplit; i++) {
 
                 if (calculateTotalPoints(yourHand, i) > dealerPoints && liveHands.includes(i) === true) {
                     money += bet;
                     timesWon += 1;
                 }
-                
+
             }
-            for (i = 1; i < timesSplit || i === timesSplit ; i++) {
+            for (i = 1; i < timesSplit || i === timesSplit; i++) {
 
                 if (calculateTotalPoints(yourHand, i) == dealerPoints && liveHands.includes(i) === true) {
                     timesDrew += 1;
                 }
-                
+
             }
-            for (i = 1; i < timesSplit || i === timesSplit ; i++) {
+            for (i = 1; i < timesSplit || i === timesSplit; i++) {
 
                 if (calculateTotalPoints(yourHand, i) < dealerPoints && liveHands.includes(i) === true) {
                     money -= bet;
                     timesLost += 1;
                 }
-                
+
             }
             refresh("Hands won: " + timesWon + " Hands lost: " + timesLost + " Hands drew: " + timesDrew, true);
         }
