@@ -354,10 +354,11 @@
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             dealerPoints = calculateTotalPoints(dealerHand);
             let timesWon = 0;
+            let timesLost = 0
             if (lost != null) {
-                let timesLost = timesSplit - lost;
+                timesLost = timesSplit - lost;
             }
-            else { let timesLost = 0; }
+            else {timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
                 dealerHit();
