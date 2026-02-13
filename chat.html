@@ -6,38 +6,56 @@
 <style>
     body {
         background-color: #0b6623;
-        color: white;
         font-family: Arial, sans-serif;
         text-align: center;
+        color: white;
     }
-    .game {
-        margin-top: 40px;
+
+    h1 { margin-top: 20px; }
+
+    .table {
+        margin-top: 20px;
     }
-    .cards {
-        font-size: 24px;
-        margin: 10px;
+
+    .cards img {
+        width: 80px;
+        margin: 5px;
     }
+
+    .controls {
+        margin-top: 20px;
+    }
+
     button {
         padding: 10px 20px;
         margin: 5px;
         font-size: 16px;
-        border: none;
         border-radius: 5px;
+        border: none;
         cursor: pointer;
     }
-    #hit { background-color: #f4c542; }
-    #stand { background-color: #d9534f; color: white; }
-    #new { background-color: #5bc0de; }
-    .hidden {
-        display: none;
+
+    #hit { background: #f4c542; }
+    #stand { background: #d9534f; color: white; }
+    #deal { background: #5bc0de; }
+   
+    input {
+        padding: 5px;
+        width: 80px;
+        text-align: center;
     }
 </style>
 </head>
 <body>
 
 <h1>🃏 Blackjack</h1>
+<h2 id="money">Money: $1000</h2>
 
-<div class="game">
+<div>
+    Bet: $<input type="number" id="bet" value="100" min="1">
+</div>
+
+<div class="table">
     <h2>Dealer</h2>
     <div id="dealer-cards" class="cards"></div>
     <div id="dealer-score"></div>
@@ -47,45 +65,56 @@
     <div id="player-score"></div>
 
     <h2 id="message"></h2>
+</div>
 
+<div class="controls">
+    <button id="deal">Deal</button>
     <button id="hit">Hit</button>
     <button id="stand">Stand</button>
-    <button id="new">New Game</button>
 </div>
 
 <script>
-const suits = ["♠", "♥", "♦", "♣"];
-const values = [
-    {name: "A", value: 11},
-    {name: "2", value: 2},
-    {name: "3", value: 3},
-    {name: "4", value: 4},
-    {name: "5", value: 5},
-    {name: "6", value: 6},
-    {name: "7", value: 7},
-    {name: "8", value: 8},
-    {name: "9", value: 9},
-    {name: "10", value: 10},
-    {name: "J", value: 10},
-    {name: "Q", value: 10},
-    {name: "K", value: 10}
-];
-
 let deck = [];
-let playerCards = [];
-let dealerCards = [];
-let gameOver = false;
+let player = [];
+let dealer = [];
+let money = 1000;
+let currentBet = 0;
+let gameOver = true;
+let dealerHidden = true;
+
+const backImage = "https://deckofcardsapi.com/static/img/back.png";
 
 function createDeck() {
+    const suits = ["S", "H", "D", "C"];
+    const values = [
+        {code: "A", value: 11},
+        {code: "2", value: 2},
+        {code: "3", value: 3},
+        {code: "4", value: 4},
+        {code: "5", value: 5},
+        {code: "6", value: 6},
+        {code: "7", value: 7},
+        {code: "8", value: 8},
+        {code: "9", value: 9},
+        {code: "0", value: 10},
+        {code: "J", value: 10},
+        {code: "Q", value: 10},
+        {code: "K", value: 10}
+    ];
+
     deck = [];
     for (let suit of suits) {
         for (let val of values) {
-            deck.push({ suit: suit, name: val.name, value: val.value });
+            deck.push({
+                code: val.code + suit,
+                value: val.value,
+                image: `https://deckofcardsapi.com/static/img/${val.code}${suit}.png`
+            });
         }
     }
 }
 
-function shuffleDeck() {
+function shuffle() {
     for (let i = deck.length - 1; i > 0; i--) {
         let j = Math.floor(Math.random() * (i + 1));
         [deck[i], deck[j]] = [deck[j], deck[i]];
@@ -96,95 +125,131 @@ function dealCard(hand) {
     hand.push(deck.pop());
 }
 
-function calculateScore(hand) {
-    let score = 0;
+function score(hand) {
+    let total = 0;
     let aces = 0;
-
     for (let card of hand) {
-        score += card.value;
-        if (card.name === "A") aces++;
+        total += card.value;
+        if (card.value === 11) aces++;
     }
-
-    while (score > 21 && aces > 0) {
-        score -= 10;
+    while (total > 21 && aces > 0) {
+        total -= 10;
         aces--;
     }
-
-    return score;
+    return total;
 }
 
 function render() {
     const playerDiv = document.getElementById("player-cards");
     const dealerDiv = document.getElementById("dealer-cards");
 
-    playerDiv.innerHTML = playerCards.map(c => c.name + c.suit).join(" ");
-    dealerDiv.innerHTML = dealerCards.map(c => c.name + c.suit).join(" ");
+    playerDiv.innerHTML = "";
+    dealerDiv.innerHTML = "";
+
+    player.forEach(card => {
+        let img = document.createElement("img");
+        img.src = card.image;
+        playerDiv.appendChild(img);
+    });
+
+    dealer.forEach((card, index) => {
+        let img = document.createElement("img");
+        if (index === 0 && dealerHidden && !gameOver) {
+            img.src = backImage;
+        } else {
+            img.src = card.image;
+        }
+        dealerDiv.appendChild(img);
+    });
 
     document.getElementById("player-score").textContent =
-        "Score: " + calculateScore(playerCards);
+        "Score: " + score(player);
+
     document.getElementById("dealer-score").textContent =
-        gameOver ? "Score: " + calculateScore(dealerCards) : "";
+        (!dealerHidden || gameOver)
+            ? "Score: " + score(dealer)
+            : "";
 }
 
-function checkGame() {
-    let playerScore = calculateScore(playerCards);
-    let dealerScore = calculateScore(dealerCards);
-
-    if (playerScore > 21) {
-        endGame("You busted! Dealer wins.");
-    } else if (dealerScore > 21) {
-        endGame("Dealer busted! You win!");
-    } else if (gameOver) {
-        if (playerScore > dealerScore) endGame("You win!");
-        else if (playerScore < dealerScore) endGame("Dealer wins.");
-        else endGame("Push (Tie).");
-    }
-}
-
-function endGame(msg) {
+function endGame(message) {
+    dealerHidden = false;
     gameOver = true;
-    document.getElementById("message").textContent = msg;
+    document.getElementById("message").textContent = message;
+    document.getElementById("money").textContent = "Money: $" + money;
     render();
 }
 
 function dealerTurn() {
-    while (calculateScore(dealerCards) < 17) {
-        dealCard(dealerCards);
+    while (score(dealer) < 17) {
+        dealCard(dealer);
     }
 }
 
-function newGame() {
-    gameOver = false;
-    document.getElementById("message").textContent = "";
-    createDeck();
-    shuffleDeck();
-    playerCards = [];
-    dealerCards = [];
-    dealCard(playerCards);
-    dealCard(dealerCards);
-    dealCard(playerCards);
-    dealCard(dealerCards);
-    render();
+function checkWinner() {
+    let p = score(player);
+    let d = score(dealer);
+
+    if (p > 21) {
+        endGame("You busted! You lose $" + currentBet);
+    } else if (d > 21) {
+        money += currentBet * 2;
+        endGame("Dealer busted! You win $" + currentBet);
+    } else if (p > d) {
+        money += currentBet * 2;
+        endGame("You win $" + currentBet);
+    } else if (p < d) {
+        endGame("Dealer wins! You lose $" + currentBet);
+    } else {
+        money += currentBet;
+        endGame("Push! Bet returned.");
+    }
 }
 
-document.getElementById("hit").addEventListener("click", () => {
-    if (gameOver) return;
-    dealCard(playerCards);
-    render();
-    checkGame();
-});
+document.getElementById("deal").onclick = function() {
+    if (!gameOver) return;
 
-document.getElementById("stand").addEventListener("click", () => {
+    currentBet = parseInt(document.getElementById("bet").value);
+    if (currentBet > money || currentBet <= 0) {
+        alert("Invalid bet amount.");
+        return;
+    }
+
+    money -= currentBet;
+    document.getElementById("money").textContent = "Money: $" + money;
+
+    createDeck();
+    shuffle();
+    player = [];
+    dealer = [];
+    dealerHidden = true;
+    gameOver = false;
+    document.getElementById("message").textContent = "";
+
+    dealCard(player);
+    dealCard(dealer);
+    dealCard(player);
+    dealCard(dealer);
+
+    render();
+};
+
+document.getElementById("hit").onclick = function() {
     if (gameOver) return;
+    dealCard(player);
+    render();
+    if (score(player) > 21) {
+        checkWinner();
+    }
+};
+
+document.getElementById("stand").onclick = function() {
+    if (gameOver) return;
+    dealerHidden = false;
     dealerTurn();
-    gameOver = true;
-    render();
-    checkGame();
-});
+    checkWinner();
+};
 
-document.getElementById("new").addEventListener("click", newGame);
-
-newGame();
+render();
 </script>
 
 </body>
