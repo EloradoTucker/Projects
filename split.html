@@ -190,6 +190,13 @@
     }
 
     function placeBet() {
+        if (timesSplit > 1) {
+                for (i = 2; i < timesSplit; i++) {
+                    const element = document.getElementbyId("yourHand" + i);
+                    element.remove();
+                }
+            }
+        timesSplit = 1;
         yourHand = [];
         dealerHand = [];
         dealerPoints = 0;
@@ -428,14 +435,7 @@
             document.getElementById("stand").disabled = isFinished;
             document.getElementById("double").disabled = isFinished;
             document.getElementById("split").disabled = isFinished;
-            if (timesSplit > 1) {
-                document.getElementById("yourHand").style.color = "black";
-                for (i = 2; i < timesSplit; i++) {
-                    const element = document.getElementbyId("yourHand" + i);
-                    element.remove;
-                }
-            }
-            timesSplit = 1;
+            document.getElementById("yourHand").style.color = "black";
             handOrder = 1;
             liveHands = [1];
         }
