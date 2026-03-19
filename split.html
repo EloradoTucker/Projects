@@ -185,18 +185,18 @@
                 (bet < 2) ? "Your bet is below the bet minimum. Please try again" : (bet > 500) ? "Your bet is above the bet maximum. Please try again" : "Your bet is invalid. Please try again";
         } else {
             document.getElementById("placeBet").disabled = true;
-            placeBet();
-        }
-    }
-
-    function placeBet() {
-        if (timesSplit > 1) {
+            if (timesSplit > 1) {
                 for (i = 2; i < timesSplit; i++) {
                     const element = document.getElementbyId("yourHand" + i);
                     element.remove();
                 }
             }
         timesSplit = 1;
+            placeBet();
+        }
+    }
+
+    function placeBet() {
         yourHand = [];
         dealerHand = [];
         dealerPoints = 0;
@@ -504,7 +504,7 @@
 
     }
 
-    //thanks g.
+    //extremely inefficient
 </script>
 
 </html>
