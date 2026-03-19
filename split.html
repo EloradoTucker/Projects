@@ -186,7 +186,7 @@
         } else {
             document.getElementById("placeBet").disabled = true;
             if (timesSplit > 1) {
-                for (i = 2; i < timesSplit; i++) {
+                for (i = 2; i > timesSplit; i++) {
                     const element = document.getElementbyId("yourHand" + i);
                     element.remove();
                 }
