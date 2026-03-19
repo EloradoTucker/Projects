@@ -54,7 +54,6 @@
         <button id="placeBet">
             Place Bet
         </button>
-        <br>
         <button onClick="resetMoney()">
             Reset Money
         </button>
@@ -429,6 +428,13 @@
             document.getElementById("stand").disabled = isFinished;
             document.getElementById("double").disabled = isFinished;
             document.getElementById("split").disabled = isFinished;
+            if (timesSplit > 1) {
+                document.getElementById("yourHand").style.color = "black";
+                for (i = 2; i < timesSplit; i++) {
+                    const element = document.getElementbyId("yourHand" + i);
+                    element.remove;
+                }
+            }
             timesSplit = 1;
             handOrder = 1;
             liveHands = [1];
@@ -445,7 +451,7 @@
             }
             x.style.color = "darkgray";
             const y = document.getElementById("yourHand" + (handOrder + 1));
-            y.style.color = "black"
+            y.style.color = "black";
             handOrder += 1;
         }
     }
