@@ -54,8 +54,12 @@
         <button id="placeBet">
             Place Bet
         </button>
-        <p id="yourBet"></p>
+        <button onClick="resetMoney()">
+            Reset Money
+        </button>
 
+        <p id="yourBet"></p>
+        
         <div>
             <div class="container mt-4">
 
@@ -94,7 +98,15 @@
 </body>
 
 <script>
-    let money = 1000;
+    let money;
+    if (localStorage.getItem("money") === null ) {
+        localStorage.setItem("money", "1000");
+        money = 1000;
+    }
+    else {
+        money = localStorage.getItem("money");
+        money = Number(money);
+    }
     let yourHand = [];
     let dealerHand = [];
     let bet = 0;
@@ -253,12 +265,14 @@
         }
         if (calculateTotalPoints(yourHand) == 21) {
             money += Math.round(bet * 1.5);
+            localStorage.setItem("money", money);
             refresh('You Win!', true);
             return;
         }
         if (calculateTotalPoints(dealerHand) == 21) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             money -= bet;
+            localStorage.setItem("money", money);
             refresh('Dealer Wins!', true);
             return;
         }
@@ -324,6 +338,7 @@
                 document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             }
             money -= bet;
+            localStorage.setItem("money", money);
             const index = liveHands.indexOf(handOrder);
             if (index > -1) {
                 liveHands.splice(index, 1);
@@ -344,6 +359,7 @@
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
             money += bet * liveHands.length;
+            localStorage.setItem("money", money);
             refresh('Dealer Busted!', true);
             return;
         }
@@ -371,6 +387,7 @@
 
                 if (calculateTotalPoints(yourHand, i) > dealerPoints && liveHands.includes(i) === true) {
                     money += bet;
+                    localStorage.setItem("money", money);
                     timesWon += 1;
                 }
 
@@ -386,6 +403,7 @@
 
                 if (calculateTotalPoints(yourHand, i) < dealerPoints && liveHands.includes(i) === true) {
                     money -= bet;
+                    localStorage.setItem("money", money);
                     timesLost += 1;
                 }
 
@@ -467,6 +485,10 @@
     function sortCards(cardNumber) {
         const sortedHand = yourHand.filter(item => item.handNo === cardNumber);
         document.getElementById("yourHand").innerHTML = sortedHand[0].card;
+    }
+    function resetMoney() {
+        localStorage.clear;
+        refresh();
     }
 
     //thanks g.
