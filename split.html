@@ -54,12 +54,13 @@
         <button id="placeBet">
             Place Bet
         </button>
+        <br>
         <button onClick="resetMoney()">
             Reset Money
         </button>
 
         <p id="yourBet"></p>
-        
+
         <div>
             <div class="container mt-4">
 
@@ -99,7 +100,7 @@
 
 <script>
     let money;
-    if (localStorage.getItem("money") === null ) {
+    if (localStorage.getItem("money") === null) {
         localStorage.setItem("money", "1000");
         money = 1000;
     }
@@ -349,7 +350,7 @@
             else {
                 refresh('You Busted!', true);
             }
-            
+
         }
     }
 
@@ -374,7 +375,7 @@
             if (lost != null) {
                 timesLost = timesSplit - lost;
             }
-            else {timesLost = 0; }
+            else { timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
                 dealerHit();
@@ -487,8 +488,14 @@
         document.getElementById("yourHand").innerHTML = sortedHand[0].card;
     }
     function resetMoney() {
-        localStorage.clear();
-        location.reload();
+        if (window.confirm("Do you want to reset your money? This will refresh the tab.")) {
+            localStorage.clear();
+            location.reload();
+        }
+        else {
+            return;
+        }
+
     }
 
     //thanks g.
