@@ -276,13 +276,7 @@
             refresh('You Win!', true);
             return;
         }
-        if (calculateTotalPoints(dealerHand) == 21) {
-            document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
-            money -= bet;
-            localStorage.setItem("money", money);
-            refresh('Dealer Wins!', true);
-            return;
-        }
+        
         if (yourHand[0].point == yourHand[1].point) {
             document.getElementById("split").disabled = false;
         }
