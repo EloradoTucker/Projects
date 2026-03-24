@@ -379,7 +379,8 @@
             let timesDrew = 0;
             while (dealerPoints < 17) {
                 dealerHit();
-                dealerPoints = calculateTotalPoints(dealerHand);
+                setTimeout(dealerPoints = calculateTotalPoints(dealerHand), 1000);
+                
             }
             if (dealerPoints > 21) {
                 return;
