@@ -356,6 +356,7 @@
 
     function dealerHit() {
         drawCard(dealerHand, 1);
+        setTimeout(() => console.log("First"), 1500)
         document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
@@ -379,7 +380,8 @@
             let timesDrew = 0;
             while (dealerPoints < 17) {
                 dealerHit();
-                setTimeout(dealerPoints = calculateTotalPoints(dealerHand), 8000);
+                dealerPoints = calculateTotalPoints(dealerHand)
+                
 
             }
             if (dealerPoints > 21) {
