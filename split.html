@@ -114,6 +114,7 @@
     let timesSplit = 1;
     let handOrder = 1;
     let liveHands = [];
+    let firstTry = false;
     document.getElementById("placeBet").disabled = false;
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
@@ -271,9 +272,8 @@
             return;
         }
         if (calculateTotalPoints(yourHand) == 21) {
-            money += Math.round(bet * 1.5);
-            localStorage.setItem("money", money);
-            refresh('You Win!', true);
+            firstTry = true;
+            stand()
             return;
         }
 
@@ -394,9 +394,16 @@
             for (i = 1; i < timesSplit || i === timesSplit; i++) {
 
                 if (calculateTotalPoints(yourHand, i) > dealerPoints && liveHands.includes(i) === true) {
-                    money += bet;
-                    localStorage.setItem("money", money);
-                    timesWon += 1;
+                    if (firstTry === true) {
+                        money += Math.round(bet * 1.5);
+                        localStorage.setItem("money", money);
+                        refresh('Blackjack!', true);
+                    }
+                    else {
+                        money += bet;
+                        localStorage.setItem("money", money);
+                        timesWon += 1;
+                    }
                 }
 
             }
