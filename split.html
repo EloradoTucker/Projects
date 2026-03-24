@@ -356,7 +356,7 @@
 
     function dealerHit() {
         drawCard(dealerHand, 1);
-        document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
+        setTimeout(document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card, 1000);
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
             money += bet * liveHands.length;
@@ -378,7 +378,7 @@
             else { timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
-                await sleep(2000);
+                //await sleep(1500);
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
 
