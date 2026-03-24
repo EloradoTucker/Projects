@@ -191,7 +191,7 @@
                     element.remove();
                 }
             }
-        timesSplit = 1;
+            timesSplit = 1;
             placeBet();
         }
     }
@@ -276,7 +276,7 @@
             refresh('You Win!', true);
             return;
         }
-        
+
         if (yourHand[0].point == yourHand[1].point) {
             document.getElementById("split").disabled = false;
         }
@@ -366,7 +366,7 @@
         }
         return dealerPoints;
     }
-    function stand(lost) {
+    async function stand(lost) {
         if (handOrder === timesSplit) {
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             dealerPoints = calculateTotalPoints(dealerHand);
@@ -378,9 +378,10 @@
             else { timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
-                setTimeout(dealerHit(), 1500)
+                await sleep(2000);
+                dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
-                
+
 
             }
             if (dealerPoints > 21) {
@@ -499,7 +500,9 @@
         }
 
     }
-
+    function sleep(milliseconds) {
+        return new Promise((resolve) => setTimeout(resolve, milliseconds));
+    }
     //extremely inefficient
 </script>
 
