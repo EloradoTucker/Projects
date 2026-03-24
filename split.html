@@ -354,9 +354,8 @@
         }
     }
 
-    async function dealerHit() {
+    function dealerHit() {
         drawCard(dealerHand, 1);
-        await sleep(1500);
         document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
@@ -369,6 +368,10 @@
     }
     async function stand(lost) {
         if (handOrder === timesSplit) {
+            document.getElementById("hit").disabled = true;
+            document.getElementById("stand").disabled = true;
+            document.getElementById("double").disabled = true;
+            document.getElementById("split").disabled = true;
             document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             dealerPoints = calculateTotalPoints(dealerHand);
             let timesWon = 0;
@@ -379,7 +382,7 @@
             else { timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
-                
+                await sleep(1500);
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
 
