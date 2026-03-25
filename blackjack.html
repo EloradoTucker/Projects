@@ -371,6 +371,7 @@
         if (dealerPoints > 21) {
             for (i = 1; i <= timesSplit; i++) {
                 if (liveHands.includes(i) === true) {
+                    console.log(bet + originalBet);
                     money += bet[i - 1];
                 }
             }
@@ -395,7 +396,7 @@
             }
             else { timesLost = 0; }
             let timesDrew = 0;
-            await sleep(600);
+            await sleep(500);
             while (dealerPoints < 17) {
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
