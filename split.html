@@ -365,7 +365,7 @@
 
     async function dealerHit() {
         drawCard(dealerHand, 1);
-        document.getElementById('dealerHand').innerHTML += "🂠";
+        document.getElementById('dealerHand').innerHTML += "🂠 ";
         await sleep(600);
         let str = document.getElementById('dealerHand').textContent;
         document.getElementById('dealerHand').innerHTML = str.replace(/b/g, dealerHand[dealerHand.length - 1].card);
