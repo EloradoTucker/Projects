@@ -495,6 +495,10 @@
         sortCards(timesSplit - 1);
         bet.push(originalBet);
         document.getElementById("yourBet").innerHTML = "Your bet: $" + originalBet + " x" + timesSplit;
+        hit();
+        handOrder += 1;
+        hit();
+        handOrder -= 1;
     }
     function createNewHand() {
         const newHand = document.createElement("div");
