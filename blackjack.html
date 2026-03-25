@@ -380,7 +380,7 @@
     }
     async function displayDealer() {
         document.getElementById('dealerHand').innerHTML += "🂠 ";
-        await sleep(600);
+        await sleep(300);
         let str = document.getElementById('dealerHand').textContent;
         document.getElementById('dealerHand').innerHTML = str.replace(/🂠/g, dealerHand[dealerHand.length - 1].card);
     }
@@ -402,6 +402,7 @@
             let timesDrew = 0;
             await sleep(600);
             while (dealerPoints < 17) {
+                await sleep(301);
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
 
