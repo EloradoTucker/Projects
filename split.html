@@ -347,7 +347,7 @@
             if (handOrder === timesSplit) {
                 document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             }
-            money -= bet[handorder - 1];
+            money -= bet[handOrder - 1];
             localStorage.setItem("money", money);
             const index = liveHands.indexOf(handOrder);
             if (index > -1) {
