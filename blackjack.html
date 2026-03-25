@@ -363,18 +363,9 @@
 
     async function dealerHit() {
         drawCard(dealerHand, 1);
-        document.getElementById('dealerHand').innerHTML += "🂠 ";
-        await sleep(600);
-        let str = document.getElementById('dealerHand').textContent;
-        document.getElementById('dealerHand').innerHTML = str.replace(/🂠/g, dealerHand[dealerHand.length - 1].card);
-        if (bet > 0) {
-            checkDealer()
-        }
-        return dealerPoints;
-    }
-    function checkDealer() {
+        displayDealer();
+        dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
-            dealerPoints = calculateTotalPoints(dealerHand);
             for (i = 1; i <= timesSplit; i++) {
                 if (liveHands.includes(i) === true) {
                     console.log(bet + " " + originalBet);
@@ -385,7 +376,15 @@
             refresh('Dealer Busted!', true);
             return;
         }
+        return dealerPoints;
     }
+    async function displayDealer() {
+        document.getElementById('dealerHand').innerHTML += "🂠 ";
+        await sleep(600);
+        let str = document.getElementById('dealerHand').textContent;
+        document.getElementById('dealerHand').innerHTML = str.replace(/🂠/g, dealerHand[dealerHand.length - 1].card);
+    }
+
     async function stand(lost) {
         if (handOrder === timesSplit) {
             document.getElementById("hit").disabled = true;
