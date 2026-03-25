@@ -181,7 +181,7 @@
 
     function drawCards() {
         bet[0] = Number(document.getElementById("bet").value);
-        origianlBet = Number(document.getElementById("bet").value);
+        originalBet = bet[0];
         if (bet[0] < 2 || bet[0] > 500 || isValidMoneyAmount(bet[0]) == false) {
             document.getElementById("yourBet").innerHTML =
                 (bet[0] < 2) ? "Your bet is below the bet minimum. Please try again" : (bet[0] > 500) ? "Your bet is above the bet maximum. Please try again" : "Your bet is invalid. Please try again";
@@ -203,7 +203,7 @@
         dealerHand = [];
         dealerPoints = 0;
         bet[0] = Number(document.getElementById("bet").value);
-        origianlBet = Number(document.getElementById("bet").value);
+        originalBet = bet[0];
         document.getElementById("placeBet").disabled = true;
         document.getElementById("yourBet").innerHTML = "Your bet: $" + bet[0];
         if (deck.length < 11) {
