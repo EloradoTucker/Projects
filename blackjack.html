@@ -396,8 +396,9 @@
             }
             else { timesLost = 0; }
             let timesDrew = 0;
-            await sleep(500);
+            await sleep(400);
             while (dealerPoints < 17) {
+                await sleep(100)
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
 
