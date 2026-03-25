@@ -363,8 +363,10 @@
         }
     }
 
-    function dealerHit() {
+    async function dealerHit() {
         drawCard(dealerHand, 1);
+        document.getElementById('dealerHand').innerHTML += "🂠";
+        await sleep(500);
         document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
@@ -395,7 +397,6 @@
             else { timesLost = 0; }
             let timesDrew = 0;
             while (dealerPoints < 17) {
-                await sleep(1500);
                 dealerHit();
                 dealerPoints = calculateTotalPoints(dealerHand)
 
