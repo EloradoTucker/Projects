@@ -368,7 +368,7 @@
         document.getElementById('dealerHand').innerHTML += "🂠 ";
         await sleep(600);
         let str = document.getElementById('dealerHand').textContent;
-        document.getElementById('dealerHand').innerHTML = str.replace(/b/g, dealerHand[dealerHand.length - 1].card);
+        document.getElementById('dealerHand').innerHTML = str.replace(/🂠/g, dealerHand[dealerHand.length - 1].card);
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
             for (i = 1; i <= timesSplit; i++) {
