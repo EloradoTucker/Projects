@@ -366,8 +366,9 @@
     async function dealerHit() {
         drawCard(dealerHand, 1);
         document.getElementById('dealerHand').innerHTML += "🂠";
-        await sleep(500);
-        document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
+        await sleep(600);
+        let str = document.getElementById('dealerHand').textContent;
+        document.getElementById('dealerHand').innerHTML = str.replace(/b/g, dealerHand[dealerHand.length - 1].card);
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
             for (i = 1; i <= timesSplit; i++) {
