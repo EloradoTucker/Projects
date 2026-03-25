@@ -109,12 +109,12 @@
     }
     let yourHand = [];
     let dealerHand = [];
-    let bet = 0;
+    let bet = [];
+    let originalBet = 0;
     let dealerPoints = 0;
     let timesSplit = 1;
     let handOrder = 1;
     let liveHands = [];
-    let firstTry = false;
     document.getElementById("placeBet").disabled = false;
     document.getElementById("hit").disabled = true;
     document.getElementById("stand").disabled = true;
@@ -180,10 +180,11 @@
     }
 
     function drawCards() {
-        bet = Number(document.getElementById("bet").value);
-        if (bet < 2 || bet > 500 || isValidMoneyAmount(bet) == false) {
+        bet[0] = Number(document.getElementById("bet").value);
+        origianlBet = Number(document.getElementById("bet").value);
+        if (bet[0] < 2 || bet[0] > 500 || isValidMoneyAmount(bet[0]) == false) {
             document.getElementById("yourBet").innerHTML =
-                (bet < 2) ? "Your bet is below the bet minimum. Please try again" : (bet > 500) ? "Your bet is above the bet maximum. Please try again" : "Your bet is invalid. Please try again";
+                (bet[0] < 2) ? "Your bet is below the bet minimum. Please try again" : (bet[0] > 500) ? "Your bet is above the bet maximum. Please try again" : "Your bet is invalid. Please try again";
         } else {
             document.getElementById("placeBet").disabled = true;
             if (timesSplit > 1) {
@@ -201,9 +202,10 @@
         yourHand = [];
         dealerHand = [];
         dealerPoints = 0;
-        bet = Number(document.getElementById("bet").value);
+        bet[0] = Number(document.getElementById("bet").value);
+        origianlBet = Number(document.getElementById("bet").value);
         document.getElementById("placeBet").disabled = true;
-        document.getElementById("yourBet").innerHTML = "Your bet: $" + bet;
+        document.getElementById("yourBet").innerHTML = "Your bet: $" + bet[0];
         if (deck.length < 11) {
             deck = [
                 { card: '🂡 ', point: 1, additionalpoint: 10 },
@@ -271,10 +273,17 @@
             refresh('Draw!', true);
             return;
         }
-        if (calculateTotalPoints(yourHand) == 21) {
-            firstTry = true;
-            stand()
-            return;
+        if (calculateTotalPoints(yourHand) === 21) {
+            if (calculateTotalPoints(dealerHand) === 21) {
+                refresh('Draw!', true);
+                return;
+            }
+            else {
+                money += Math.round(bet[0] * 1.5);
+                localStorage.setItem("money", money);
+                refresh('Blackjack!', true);
+                return;
+            }
         }
 
         if (yourHand[0].point == yourHand[1].point) {
@@ -338,7 +347,7 @@
             if (handOrder === timesSplit) {
                 document.getElementById('dealerHand').innerHTML = dealerHand[1].card + dealerHand[0].card;
             }
-            money -= bet;
+            money -= bet[handorder - 1];
             localStorage.setItem("money", money);
             const index = liveHands.indexOf(handOrder);
             if (index > -1) {
@@ -359,7 +368,11 @@
         document.getElementById('dealerHand').innerHTML += dealerHand[dealerHand.length - 1].card;
         dealerPoints = calculateTotalPoints(dealerHand);
         if (dealerPoints > 21) {
-            money += bet * liveHands.length;
+            for (i = 1; i <= timesSplit; i++) {
+                if (liveHands.includes(i) === true) {
+                    money += bet[i - 1];
+                }
+            }
             localStorage.setItem("money", money);
             refresh('Dealer Busted!', true);
             return;
@@ -394,16 +407,10 @@
             for (i = 1; i < timesSplit || i === timesSplit; i++) {
 
                 if (calculateTotalPoints(yourHand, i) > dealerPoints && liveHands.includes(i) === true) {
-                    if (firstTry === true) {
-                        money += Math.round(bet * 1.5);
-                        localStorage.setItem("money", money);
-                        refresh('Blackjack!', true);
-                    }
-                    else {
-                        money += bet;
-                        localStorage.setItem("money", money);
-                        timesWon += 1;
-                    }
+
+                    money += bet[i - 1];
+                    localStorage.setItem("money", money);
+                    timesWon += 1;
                 }
 
             }
@@ -417,7 +424,7 @@
             for (i = 1; i < timesSplit || i === timesSplit; i++) {
 
                 if (calculateTotalPoints(yourHand, i) < dealerPoints && liveHands.includes(i) === true) {
-                    money -= bet;
+                    money -= bet[i - 1];
                     localStorage.setItem("money", money);
                     timesLost += 1;
                 }
@@ -447,6 +454,8 @@
             document.getElementById("yourHand").style.color = "black";
             handOrder = 1;
             liveHands = [1];
+            bet = [];
+            originalBet = 0;
         }
         else {
             document.getElementById("money").innerHTML = money;
@@ -465,7 +474,7 @@
         }
     }
     function double() {
-        bet = bet * 2;
+        bet[handOrder - 1] += bet[handOrder - 1]
         hit();
         if (calculateTotalPoints(yourHand) < 22) {
             stand();
@@ -483,6 +492,7 @@
         yourHand[0].handNo = timesSplit;
         createNewHand();
         sortCards(timesSplit - 1);
+        bet.push(originalBet);
         document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + timesSplit;
     }
     function createNewHand() {
