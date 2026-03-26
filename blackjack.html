@@ -501,6 +501,10 @@
         sortCards(timesSplit - 1);
         bet.push(originalBet);
         document.getElementById("yourBet").innerHTML = "Your bet: $" + originalBet + " x" + timesSplit;
+        drawCard(yourHand, 1);
+        document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
+        drawCard(yourHand, 2);
+        document.getElementById('yourHand' + (handOrder + 1)).innerHTML += yourHand[yourHand.length - 1].card;
     }
     function createNewHand() {
         const newHand = document.createElement("div");
@@ -532,6 +536,8 @@
     function sleep(milliseconds) {
         return new Promise((resolve) => setTimeout(resolve, milliseconds));
     }
+        
+        
     //extremely inefficient
 </script>
 
