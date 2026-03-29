@@ -373,7 +373,6 @@
                 }
             }
             localStorage.setItem("money", money);
-            refresh('Dealer Busted!', true);
             return;
         }
         return dealerPoints;
@@ -409,6 +408,7 @@
 
             }
             if (dealerPoints > 21) {
+                refresh('Dealer Busted!', true);
                 return;
             }
             for (i = 1; i < timesSplit || i === timesSplit; i++) {
@@ -491,6 +491,7 @@
         }
         if (timesSplit != handOrder) {
             nextHand();
+            document.getElementById("double").disabled = false;
         }
     }
     function drawCard(hand, handNumber) {
