@@ -486,7 +486,7 @@
     function double() {
         bet[handOrder - 1] += bet[handOrder - 1];
         hit();
-        if (calculateTotalPoints(yourHand) < 22 && timesSplit === 1) {
+        if (calculateTotalPoints(yourHand) < 22 && timesSplit === handOrder) {
             stand();
         }
         if (timesSplit != handOrder) {
