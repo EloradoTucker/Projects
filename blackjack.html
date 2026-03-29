@@ -440,13 +440,16 @@
             refresh("Hands won: " + timesWon + " Hands lost: " + timesLost + " Hands drew: " + timesDrew, true);
         }
         else {
-            const x = document.getElementById("yourHand");
+            nextHand();
+        }
+    }
+    function nextHand() {
+        const x = document.getElementById("yourHand");
             x.style.color = "darkgray";
             const y = document.getElementById("yourHand" + (handOrder + 1));
             y.style.color = "black"
             handOrder += 1;
             document.getElementById("double").disabled = false;
-        }
     }
     function refresh(betResult, isFinished) {
         if (handOrder === timesSplit) {
@@ -485,6 +488,9 @@
         hit();
         if (calculateTotalPoints(yourHand) < 22 && timesSplit === 1) {
             stand();
+        }
+        if (timesSplit != handOrder) {
+            nextHand();
         }
     }
     function drawCard(hand, handNumber) {
