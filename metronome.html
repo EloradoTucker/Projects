@@ -28,15 +28,15 @@
     </select>
     <br> <br>
     <p>Mute random bars:</p>
-    <input type="radio" class="mute" id="0" value="0">
-    <label for="none">Off</label>
-    <input type="radio" class="mute" id="10" value="10">
+    <input type="radio" name="muteFrequency" class="mute" id="0" value="0">
+    <label for="0">Off</label>
+    <input type="radio" name="muteFrequency" class="mute" id="10" value="10">
     <label for="10">10%</label>
-    <input type="radio" class="mute" id="20" value="20">
+    <input type="radio" name="muteFrequency" class="mute" id="20" value="20">
     <label for="20">20%</label>
-    <input type="radio" class="mute" id="30" value="30">
+    <input type="radio" name="muteFrequency" class="mute" id="30" value="30">
     <label for="30">30%</label>
-    <input type="radio" class="mute" id="40" value="40">
+    <input type="radio" name="muteFrequency" class="mute" id="40" value="40">
     <label for="40">40%</label>
 
 </body>
@@ -46,7 +46,9 @@
     var slider = document.getElementById('BPM');
     let interval;
     let intervalTime = 60000 / slider.value;
-    let randomMute;
+    let beatInBar = 0;
+    let mutedBar = false;
+    const timeSignature = document.getElementById('time');
     document.getElementById('displayBPM').innerHTML = slider.value;
     slider.oninput = function () {
         document.getElementById('displayBPM').innerHTML = slider.value;
@@ -71,27 +73,46 @@
     function startMetronome() {
         clearInterval(interval);
         intervalTime = 60000 / slider.value;
+        beatInBar = 0;
+        mutedBar = false;
         interval = setInterval(tick, intervalTime);
+        tick();
     }
 
     function stopMetronome() {
         clearInterval(interval);
+        interval = undefined;
     }
 
     function tick() {
-        const audio = new Audio('tick.mp3');
-        audio.play();
-        for (;;) {
-            randomMute = setInterval(muted, slider.value / 60000 * time.value);
+        if (beatInBar === 0) {
+            mutedBar = Math.random() * 100 < getMuteFrequency();
         }
-    }
-    function muted() {
-        if (Math.floor(Math.random() * mute.value) = 0) {
-            stopMetronome();
-            setTimeout(startMetronome, slider.value / 60000 * time.value);
-            return;
+
+        if (!mutedBar) {
+            const audio = new Audio('tick.mp3');
+            audio.play();
         }
+
+        beatInBar = (beatInBar + 1) % Number(timeSignature.value);
     }
+
+    function getMuteFrequency() {
+        const selectedMute = document.querySelector('input[name="muteFrequency"]:checked');
+        return Number(selectedMute.value);
+    }
+
+    timeSignature.onchange = function () {
+        beatInBar = 0;
+        mutedBar = false;
+    };
+
+    slider.oninput = function () {
+        document.getElementById('displayBPM').innerHTML = slider.value;
+        if (interval) {
+            startMetronome();
+        }
+    };
 </script>
 
 </html>
