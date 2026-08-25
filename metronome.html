@@ -54,24 +54,30 @@
     let audioLoadPromise;
     let runToken = 0;
     document.getElementById('displayBPM').innerHTML = slider.value;
-    slider.oninput = function () {
+    function updateBPM() {
         document.getElementById('displayBPM').innerHTML = slider.value;
+        if (interval) {
+            startMetronome();
+        }
     }
+
+    slider.oninput = updateBPM;
+
     function add1BPM() {
         slider.value = +slider.value + 1;
-        document.getElementById('displayBPM').innerHTML = slider.value;
+        updateBPM();
     }
     function add10BPM() {
         slider.value = +slider.value + 10;
-        document.getElementById('displayBPM').innerHTML = slider.value;
+        updateBPM();
     }
     function sub1BPM() {
         slider.value -= 1;
-        document.getElementById('displayBPM').innerHTML = slider.value;
+        updateBPM();
     }
     function sub10BPM() {
         slider.value -= 10;
-        document.getElementById('displayBPM').innerHTML = slider.value;
+        updateBPM();
     }
 
     async function startMetronome() {
@@ -150,12 +156,6 @@
         mutedBar = false;
     };
 
-    slider.oninput = function () {
-        document.getElementById('displayBPM').innerHTML = slider.value;
-        if (interval) {
-            startMetronome();
-        }
-    };
 </script>
 
 </html>
