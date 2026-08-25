@@ -49,6 +49,10 @@
     let beatInBar = 0;
     let mutedBar = false;
     const timeSignature = document.getElementById('time');
+    let audioContext;
+    let tickBuffer;
+    let audioLoadPromise;
+    let runToken = 0;
     document.getElementById('displayBPM').innerHTML = slider.value;
     slider.oninput = function () {
         document.getElementById('displayBPM').innerHTML = slider.value;
@@ -70,16 +74,36 @@
         document.getElementById('displayBPM').innerHTML = slider.value;
     }
 
-    function startMetronome() {
+    async function startMetronome() {
+        const requestedRun = ++runToken;
         clearInterval(interval);
-        intervalTime = 60000 / slider.value;
+        interval = undefined;
         beatInBar = 0;
         mutedBar = false;
+
+        if (!audioContext) {
+            audioContext = new AudioContext();
+        }
+        await audioContext.resume();
+
+        try {
+            await loadTickBuffer();
+        } catch (error) {
+            console.error('Unable to load metronome sound.', error);
+            return;
+        }
+
+        if (requestedRun !== runToken) {
+            return;
+        }
+
+        intervalTime = 60000 / slider.value;
         interval = setInterval(tick, intervalTime);
         tick();
     }
 
     function stopMetronome() {
+        runToken += 1;
         clearInterval(interval);
         interval = undefined;
     }
@@ -90,11 +114,30 @@
         }
 
         if (!mutedBar) {
-            const audio = new Audio('tick.mp3');
-            audio.play();
+            const source = audioContext.createBufferSource();
+            source.buffer = tickBuffer;
+            source.connect(audioContext.destination);
+            source.start();
         }
 
         beatInBar = (beatInBar + 1) % Number(timeSignature.value);
+    }
+
+    function loadTickBuffer() {
+        if (!audioLoadPromise) {
+            audioLoadPromise = fetch('tick.mp3')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Audio request failed: ${response.status}`);
+                    }
+                    return response.arrayBuffer();
+                })
+                .then(audioData => audioContext.decodeAudioData(audioData))
+                .then(buffer => {
+                    tickBuffer = buffer;
+                });
+        }
+        return audioLoadPromise;
     }
 
     function getMuteFrequency() {
