@@ -484,7 +484,8 @@
         }
     }
     function double() {
-        bet[handOrder - 1] += bet[handOrder - 1];
+        const handBetIndex = handOrder - 1;
+        bet[handBetIndex] = Number(bet[handBetIndex] ?? originalBet) * 2;
         hit();
         if (calculateTotalPoints(yourHand) < 22 && timesSplit === handOrder) {
             stand();
@@ -506,7 +507,7 @@
         yourHand[0].handNo = timesSplit;
         createNewHand();
         sortCards(timesSplit - 1);
-        bet.push(originalBet);
+        bet[timesSplit - 1] = originalBet;
         document.getElementById("yourBet").innerHTML = "Your bet: $" + originalBet + " x" + timesSplit;
         drawCard(yourHand, 1);
         document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
