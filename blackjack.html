@@ -485,12 +485,13 @@
     }
     function double() {
         const handBetIndex = handOrder - 1;
+        const doubledHand = handOrder;
         bet[handBetIndex] = Number(bet[handBetIndex] ?? originalBet) * 2;
         hit();
-        if (calculateTotalPoints(yourHand) < 22 && timesSplit === handOrder) {
+        if (calculateTotalPoints(yourHand, doubledHand) < 22 && timesSplit === doubledHand) {
             stand();
         }
-        if (timesSplit != handOrder) {
+        if (timesSplit != doubledHand && handOrder === doubledHand) {
             nextHand();
             document.getElementById("double").disabled = false;
         }
