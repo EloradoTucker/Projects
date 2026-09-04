@@ -449,7 +449,14 @@
             const y = document.getElementById("yourHand" + (handOrder + 1));
             y.style.color = "black"
             handOrder += 1;
+            updateBetDisplay();
             document.getElementById("double").disabled = false;
+    }
+    function updateBetDisplay() {
+        const activeBet = bet[handOrder - 1] ?? originalBet;
+        const handsRemaining = timesSplit - handOrder + 1;
+        document.getElementById("yourBet").innerHTML =
+            "Your bet: $" + activeBet + (timesSplit > 1 ? " x" + handsRemaining : "");
     }
     function refresh(betResult, isFinished) {
         if (handOrder === timesSplit) {
@@ -469,7 +476,7 @@
         }
         else {
             document.getElementById("money").innerHTML = money;
-            document.getElementById("yourBet").innerHTML = "Your bet: $" + bet + " x" + (timesSplit - handOrder);
+            updateBetDisplay();
             var x;
             if (handOrder === 1) {
                 x = document.getElementById("yourHand");
@@ -487,6 +494,7 @@
         const handBetIndex = handOrder - 1;
         const doubledHand = handOrder;
         bet[handBetIndex] = Number(bet[handBetIndex] ?? originalBet) * 2;
+        updateBetDisplay();
         hit();
         if (calculateTotalPoints(yourHand, doubledHand) < 22 && timesSplit === doubledHand) {
             stand();
@@ -509,7 +517,7 @@
         createNewHand();
         sortCards(timesSplit - 1);
         bet[timesSplit - 1] = originalBet;
-        document.getElementById("yourBet").innerHTML = "Your bet: $" + originalBet + " x" + timesSplit;
+        updateBetDisplay();
         drawCard(yourHand, 1);
         document.getElementById('yourHand').innerHTML += yourHand[yourHand.length - 1].card;
         drawCard(yourHand, 2);
