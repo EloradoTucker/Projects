@@ -10,69 +10,78 @@
 
 <body>
     <h1>Video Poker</h1>
-  <p>(or 1 player poker)</p>
+    <p>(or 1 player poker)</p>
     <label>You have: $<span id="money"></span> </label><button onClick="reset()">Reset money.</button>
     <br><br>
     <p>How much? Bet min is $2. Bet max is $500</p>
     <input type="number" id="bet"></p>
     <p id="status"></p>
     <br>
+    <label>Your Hand:</label>
+    <div id="yourHand">
+        <button id="c1"></button>
+        <button id="c2"></button>
+        <button id="c3"></button>
+        <button id="c4"></button>
+        <button id="c5"></button>
+    </div>
 </body>
 <script>
     let money = 1000;
-  let deck = [
-        { card: '🂡 ', point: 1, additionalpoint: 10 },
-        { card: '🃑 ', point: 1, additionalpoint: 10 },
-        { card: '🂱 ', point: 1, additionalpoint: 10 },
-        { card: '🃁 ', point: 1, additionalpoint: 10 },
-        { card: '🂢 ', point: 2, additionalpoint: 0 },
-        { card: '🂲 ', point: 2, additionalpoint: 0 },
-        { card: '🃂 ', point: 2, additionalpoint: 0 },
-        { card: '🃒 ', point: 2, additionalpoint: 0 },
-        { card: '🂣 ', point: 3, additionalpoint: 0 },
-        { card: '🂳 ', point: 3, additionalpoint: 0 },
-        { card: '🃃 ', point: 3, additionalpoint: 0 },
-        { card: '🃓 ', point: 3, additionalpoint: 0 },
-        { card: '🂤 ', point: 4, additionalpoint: 0 },
-        { card: '🂴 ', point: 4, additionalpoint: 0 },
-        { card: '🃄 ', point: 4, additionalpoint: 0 },
-        { card: '🃔 ', point: 4, additionalpoint: 0 },
-        { card: '🂥 ', point: 5, additionalpoint: 0 },
-        { card: '🂵 ', point: 5, additionalpoint: 0 },
-        { card: '🃅 ', point: 5, additionalpoint: 0 },
-        { card: '🃕 ', point: 5, additionalpoint: 0 },
-        { card: '🂦 ', point: 6, additionalpoint: 0 },
-        { card: '🂶 ', point: 6, additionalpoint: 0 },
-        { card: '🃆 ', point: 6, additionalpoint: 0 },
-        { card: '🃖 ', point: 6, additionalpoint: 0 },
-        { card: '🂧 ', point: 7, additionalpoint: 0 },
-        { card: '🂷 ', point: 7, additionalpoint: 0 },
-        { card: '🃇 ', point: 7, additionalpoint: 0 },
-        { card: '🃗 ', point: 7, additionalpoint: 0 },
-        { card: '🂨 ', point: 8, additionalpoint: 0 },
-        { card: '🂸 ', point: 8, additionalpoint: 0 },
-        { card: '🃈 ', point: 8, additionalpoint: 0 },
-        { card: '🃘 ', point: 8, additionalpoint: 0 },
-        { card: '🂩 ', point: 9, additionalpoint: 0 },
-        { card: '🂹 ', point: 9, additionalpoint: 0 },
-        { card: '🃉 ', point: 9, additionalpoint: 0 },
-        { card: '🃙 ', point: 9, additionalpoint: 0 },
-        { card: '🂪 ', point: 10, additionalpoint: 0 },
-        { card: '🂺 ', point: 10, additionalpoint: 0 },
-        { card: '🃊 ', point: 10, additionalpoint: 0 },
-        { card: '🃚 ', point: 10, additionalpoint: 0 },
-        { card: '🂫 ', point: 10, additionalpoint: 0 },
-        { card: '🂻 ', point: 10, additionalpoint: 0 },
-        { card: '🃋 ', point: 10, additionalpoint: 0 },
-        { card: '🃛 ', point: 10, additionalpoint: 0 },
-        { card: '🂭 ', point: 10, additionalpoint: 0 },
-        { card: '🂽 ', point: 10, additionalpoint: 0 },
-        { card: '🃍 ', point: 10, additionalpoint: 0 },
-        { card: '🃝 ', point: 10, additionalpoint: 0 },
-        { card: '🂮 ', point: 10, additionalpoint: 0 },
-        { card: '🂾 ', point: 10, additionalpoint: 0 },
-        { card: '🃎 ', point: 10, additionalpoint: 0 },
-        { card: '🃞 ', point: 10, additionalpoint: 0 }];
+    let yourHand = [];
+    let deck = [
+        {card: '🂡 ', point: 1, additionalpoint: 10},
+        {card: '🃑 ', point: 1, additionalpoint: 10},
+        {card: '🂱 ', point: 1, additionalpoint: 10},
+        {card: '🃁 ', point: 1, additionalpoint: 10},
+        {card: '🂢 ', point: 2, additionalpoint: 0},
+        {card: '🂲 ', point: 2, additionalpoint: 0},
+        {card: '🃂 ', point: 2, additionalpoint: 0},
+        {card: '🃒 ', point: 2, additionalpoint: 0},
+        {card: '🂣 ', point: 3, additionalpoint: 0},
+        {card: '🂳 ', point: 3, additionalpoint: 0},
+        {card: '🃃 ', point: 3, additionalpoint: 0},
+        {card: '🃓 ', point: 3, additionalpoint: 0},
+        {card: '🂤 ', point: 4, additionalpoint: 0},
+        {card: '🂴 ', point: 4, additionalpoint: 0},
+        {card: '🃄 ', point: 4, additionalpoint: 0},
+        {card: '🃔 ', point: 4, additionalpoint: 0},
+        {card: '🂥 ', point: 5, additionalpoint: 0},
+        {card: '🂵 ', point: 5, additionalpoint: 0},
+        {card: '🃅 ', point: 5, additionalpoint: 0},
+        {card: '🃕 ', point: 5, additionalpoint: 0},
+        {card: '🂦 ', point: 6, additionalpoint: 0},
+        {card: '🂶 ', point: 6, additionalpoint: 0},
+        {card: '🃆 ', point: 6, additionalpoint: 0},
+        {card: '🃖 ', point: 6, additionalpoint: 0},
+        {card: '🂧 ', point: 7, additionalpoint: 0},
+        {card: '🂷 ', point: 7, additionalpoint: 0},
+        {card: '🃇 ', point: 7, additionalpoint: 0},
+        {card: '🃗 ', point: 7, additionalpoint: 0},
+        {card: '🂨 ', point: 8, additionalpoint: 0},
+        {card: '🂸 ', point: 8, additionalpoint: 0},
+        {card: '🃈 ', point: 8, additionalpoint: 0},
+        {card: '🃘 ', point: 8, additionalpoint: 0},
+        {card: '🂩 ', point: 9, additionalpoint: 0},
+        {card: '🂹 ', point: 9, additionalpoint: 0},
+        {card: '🃉 ', point: 9, additionalpoint: 0},
+        {card: '🃙 ', point: 9, additionalpoint: 0},
+        {card: '🂪 ', point: 10, additionalpoint: 0},
+        {card: '🂺 ', point: 10, additionalpoint: 0},
+        {card: '🃊 ', point: 10, additionalpoint: 0},
+        {card: '🃚 ', point: 10, additionalpoint: 0},
+        {card: '🂫 ', point: 10, additionalpoint: 0},
+        {card: '🂻 ', point: 10, additionalpoint: 0},
+        {card: '🃋 ', point: 10, additionalpoint: 0},
+        {card: '🃛 ', point: 10, additionalpoint: 0},
+        {card: '🂭 ', point: 10, additionalpoint: 0},
+        {card: '🂽 ', point: 10, additionalpoint: 0},
+        {card: '🃍 ', point: 10, additionalpoint: 0},
+        {card: '🃝 ', point: 10, additionalpoint: 0},
+        {card: '🂮 ', point: 10, additionalpoint: 0},
+        {card: '🂾 ', point: 10, additionalpoint: 0},
+        {card: '🃎 ', point: 10, additionalpoint: 0},
+        {card: '🃞 ', point: 10, additionalpoint: 0}];
     document.getElementById("money").innerHTML = money;
     //The pockets of the roulette wheel are numbered from 0 to 36. In number ranges from 1 to 10 and 19 to 28, odd numbers are red and even are black. In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red.
     function placeBet() {
@@ -85,14 +94,82 @@
             }
             return;
         }
-      drawHand();
+        drawHand();
     }
-   function drawHand() {
-   }
+    function drawHand() {
+        deck = [
+            {card: '🂡 ', point: 1, additionalpoint: 10},
+            {card: '🃑 ', point: 1, additionalpoint: 10},
+            {card: '🂱 ', point: 1, additionalpoint: 10},
+            {card: '🃁 ', point: 1, additionalpoint: 10},
+            {card: '🂢 ', point: 2, additionalpoint: 0},
+            {card: '🂲 ', point: 2, additionalpoint: 0},
+            {card: '🃂 ', point: 2, additionalpoint: 0},
+            {card: '🃒 ', point: 2, additionalpoint: 0},
+            {card: '🂣 ', point: 3, additionalpoint: 0},
+            {card: '🂳 ', point: 3, additionalpoint: 0},
+            {card: '🃃 ', point: 3, additionalpoint: 0},
+            {card: '🃓 ', point: 3, additionalpoint: 0},
+            {card: '🂤 ', point: 4, additionalpoint: 0},
+            {card: '🂴 ', point: 4, additionalpoint: 0},
+            {card: '🃄 ', point: 4, additionalpoint: 0},
+            {card: '🃔 ', point: 4, additionalpoint: 0},
+            {card: '🂥 ', point: 5, additionalpoint: 0},
+            {card: '🂵 ', point: 5, additionalpoint: 0},
+            {card: '🃅 ', point: 5, additionalpoint: 0},
+            {card: '🃕 ', point: 5, additionalpoint: 0},
+            {card: '🂦 ', point: 6, additionalpoint: 0},
+            {card: '🂶 ', point: 6, additionalpoint: 0},
+            {card: '🃆 ', point: 6, additionalpoint: 0},
+            {card: '🃖 ', point: 6, additionalpoint: 0},
+            {card: '🂧 ', point: 7, additionalpoint: 0},
+            {card: '🂷 ', point: 7, additionalpoint: 0},
+            {card: '🃇 ', point: 7, additionalpoint: 0},
+            {card: '🃗 ', point: 7, additionalpoint: 0},
+            {card: '🂨 ', point: 8, additionalpoint: 0},
+            {card: '🂸 ', point: 8, additionalpoint: 0},
+            {card: '🃈 ', point: 8, additionalpoint: 0},
+            {card: '🃘 ', point: 8, additionalpoint: 0},
+            {card: '🂩 ', point: 9, additionalpoint: 0},
+            {card: '🂹 ', point: 9, additionalpoint: 0},
+            {card: '🃉 ', point: 9, additionalpoint: 0},
+            {card: '🃙 ', point: 9, additionalpoint: 0},
+            {card: '🂪 ', point: 10, additionalpoint: 0},
+            {card: '🂺 ', point: 10, additionalpoint: 0},
+            {card: '🃊 ', point: 10, additionalpoint: 0},
+            {card: '🃚 ', point: 10, additionalpoint: 0},
+            {card: '🂫 ', point: 10, additionalpoint: 0},
+            {card: '🂻 ', point: 10, additionalpoint: 0},
+            {card: '🃋 ', point: 10, additionalpoint: 0},
+            {card: '🃛 ', point: 10, additionalpoint: 0},
+            {card: '🂭 ', point: 10, additionalpoint: 0},
+            {card: '🂽 ', point: 10, additionalpoint: 0},
+            {card: '🃍 ', point: 10, additionalpoint: 0},
+            {card: '🃝 ', point: 10, additionalpoint: 0},
+            {card: '🂮 ', point: 10, additionalpoint: 0},
+            {card: '🂾 ', point: 10, additionalpoint: 0},
+            {card: '🃎 ', point: 10, additionalpoint: 0},
+            {card: '🃞 ', point: 10, additionalpoint: 0}];
 
-    
+        drawCards();
+        drawCards();
+        drawCards();
+        drawCards();
+        drawCards();
+        document.getElementById("c1").innerHTML = yourHand.card[1];
+        document.getElementById("c2").innerHTML = yourHand.card[2];
+        document.getElementById("c3").innerHTML = yourHand.card[3];
+        document.getElementById("c4").innerHTML = yourHand.card[4];
+        document.getElementById("c5").innerHTML = yourHand.card[5];
+    }
+    function drawCards() {
+        let randomCard = Math.floor(Math.random() * deck.length);
+        yourHand.push(deck[randomCard]);
+        deck.splice(randomCard, 1);
+    }
     function reset() {
         window.location.reload();
     }
+
 
 </script>
