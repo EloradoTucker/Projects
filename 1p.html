@@ -87,10 +87,9 @@
         {card: '🃎 ', point: 10, additionalpoint: 0},
         {card: '🃞 ', point: 10, additionalpoint: 0}];
     document.getElementById("money").innerHTML = money;
-    //The pockets of the roulette wheel are numbered from 0 to 36. In number ranges from 1 to 10 and 19 to 28, odd numbers are red and even are black. In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red.
+    
     function placeBet() {
         bet = Number(document.getElementById("bet").value)
-        betColour = document.getElementById("betColour").value;
         if ((bet <= 1) || (bet > 500) || (bet > money)) {
             document.getElementById("status").innerHTML = "Bet invalid. Try again."
             if (bet > money) {
