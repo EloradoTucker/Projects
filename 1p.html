@@ -159,11 +159,11 @@
         drawCards();
         drawCards();
         drawCards();
-        document.getElementById("c1").innerHTML = yourHand.card[1];
-        document.getElementById("c2").innerHTML = yourHand.card[2];
-        document.getElementById("c3").innerHTML = yourHand.card[3];
-        document.getElementById("c4").innerHTML = yourHand.card[4];
-        document.getElementById("c5").innerHTML = yourHand.card[5];
+        document.getElementById("c1").innerHTML = yourHand[0].card;
+        document.getElementById("c2").innerHTML = yourHand[1].card;
+        document.getElementById("c3").innerHTML = yourHand[2].card;
+        document.getElementById("c4").innerHTML = yourHand[3].card;
+        document.getElementById("c5").innerHTML = yourHand[4].card;
     }
     function drawCards() {
         let randomCard = Math.floor(Math.random() * deck.length);
