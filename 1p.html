@@ -193,8 +193,8 @@
         targets.forEach(index => {
             drawCards();
         })
-        
         updateHand();
+        document.getElementById("disc").disabled = true;
     }
     function updateHand() {
         document.getElementById("c0").innerHTML = yourHand[0].card;
