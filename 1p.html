@@ -6,10 +6,11 @@
     body {
         background-color: lightgreen;
     }
+
     .c {
         font-size: 75px;
         cursor: grab;
-        
+
     }
 </style>
 
@@ -89,8 +90,13 @@
         {card: '🃎 ', point: 10, additionalpoint: 0},
         {card: '🃞 ', point: 10, additionalpoint: 0}];
     document.getElementById("money").innerHTML = money;
-    document.getElementsByClassName("c").disabled = true;
-    
+    switchButtons(true);
+    function switchButtons(on) {
+        const buttons = document.querySelectorAll("c");
+        buttons.forEach(button => {
+            button.disabled = on;
+        });
+    }
     function placeBet() {
         bet = Number(document.getElementById("bet").value)
         if ((bet <= 1) || (bet > 500) || (bet > money)) {
@@ -101,7 +107,7 @@
             return;
         }
         drawHand();
-        document.getElementsByClassName("c").disabled = true;
+        switchButtons(false);
     }
     function drawHand() {
         deck = [
@@ -171,7 +177,7 @@
         deck.splice(randomCard, 1);
     }
     function discard(No) {
-        yourHand.splice(No,1);
+        yourHand.splice(No, 1);
         drawCards();
         updateHand();
     }
