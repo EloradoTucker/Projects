@@ -92,8 +92,8 @@
     document.getElementById("money").innerHTML = money;
     switchButtons(true);
     function switchButtons(on) {
-        const buttons = document.querySelectorAll("c");
-        buttons.forEach(button => {
+        const button = document.querySelectorAll("c");
+        button.forEach(button => {
             button.disabled = on;
         });
     }
