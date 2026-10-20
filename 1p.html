@@ -36,7 +36,7 @@
 </body>
 <script>
     let money = 1000;
-    let discard = 0;
+    let cNum = 0;
     let yourHand = [];
     let deck = [
         {card: '🂡 ', point: 1, additionalpoint: 10},
@@ -183,8 +183,8 @@
         yourHand.splice(No, 1);
         drawCards();
         updateHand();
-        discard =+ 1;
-        if (discard >= 3) {
+        cNum =+ 1;
+        if (cNum >= 3) {
             switchButtons(true);
                 }
     }
