@@ -22,7 +22,7 @@
     <br><br>
     <p>How much? Bet min is $2. Bet max is $500</p>
     <input type="number" id="bet"></p>
-    <button onClick="placeBet()">Bet</button>
+    <button onClick="placeBet()" id="bb">Bet</button>
     <p id="status"></p>
     <br>
     <label>Your Hand:</label>
@@ -92,6 +92,7 @@
         {card: '🃎 ', point: 10, additionalpoint: 0},
         {card: '🃞 ', point: 10, additionalpoint: 0}];
     document.getElementById("money").innerHTML = money;
+    document.getElementById("bb").disabled = false;
     switchButtons(true);
     function switchButtons(on) {
         const buttons = document.getElementsByClassName("c");
@@ -110,6 +111,7 @@
         }
         document.getElementById("status").innerHTML = "Your bet: " + bet;
         drawHand();
+        document.getElementById("bb").disabled = true;
         switchButtons(false);
     }
     function drawHand() {
