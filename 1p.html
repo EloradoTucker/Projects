@@ -25,11 +25,11 @@
     <br>
     <label>Your Hand:</label>
     <div id="yourHand">
-        <button class="c" id="c1"></button>
-        <button class="c" id="c2"></button>
-        <button class="c" id="c3"></button>
-        <button class="c" id="c4"></button>
-        <button class="c" id="c5"></button>
+        <button class="c" id="c0" onClick="discard(0)"></button>
+        <button class="c" id="c1" onClick="discard(1)"></button>
+        <button class="c" id="c2" onClick="discard(2)"></button>
+        <button class="c" id="c3" onClick="discard(3)"></button>
+        <button class="c" id="c4" onClick="discard(4)"></button>
     </div>
 </body>
 <script>
@@ -89,6 +89,7 @@
         {card: '🃎 ', point: 10, additionalpoint: 0},
         {card: '🃞 ', point: 10, additionalpoint: 0}];
     document.getElementById("money").innerHTML = money;
+    document.getElementsByClassName("c").disabled = true;
     
     function placeBet() {
         bet = Number(document.getElementById("bet").value)
@@ -100,6 +101,7 @@
             return;
         }
         drawHand();
+        document.getElementsByClassName("c").disabled = true;
     }
     function drawHand() {
         deck = [
@@ -161,16 +163,24 @@
         drawCards();
         drawCards();
         drawCards();
-        document.getElementById("c1").innerHTML = yourHand[0].card;
-        document.getElementById("c2").innerHTML = yourHand[1].card;
-        document.getElementById("c3").innerHTML = yourHand[2].card;
-        document.getElementById("c4").innerHTML = yourHand[3].card;
-        document.getElementById("c5").innerHTML = yourHand[4].card;
+        updateHand();
     }
     function drawCards() {
         let randomCard = Math.floor(Math.random() * deck.length);
         yourHand.push(deck[randomCard]);
         deck.splice(randomCard, 1);
+    }
+    function discard(No) {
+        yourHand.splice(No,1);
+        drawCards();
+        updateHand();
+    }
+    function updateHand() {
+        document.getElementById("c0").innerHTML = yourHand[0].card;
+        document.getElementById("c1").innerHTML = yourHand[1].card;
+        document.getElementById("c2").innerHTML = yourHand[2].card;
+        document.getElementById("c3").innerHTML = yourHand[3].card;
+        document.getElementById("c4").innerHTML = yourHand[4].card;
     }
     function reset() {
         window.location.reload();
