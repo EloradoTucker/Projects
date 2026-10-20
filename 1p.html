@@ -93,10 +93,10 @@
     document.getElementById("money").innerHTML = money;
     switchButtons(true);
     function switchButtons(on) {
-        const button = document.querySelectorAll("c");
-        button.forEach(button => {
-            button.disabled = on;
-        });
+        const buttons = document.getElementsByClassName("c");
+        for (let button of buttons) {
+            button.disabled = on
+        }
     }
     function placeBet() {
         bet = Number(document.getElementById("bet").value)
