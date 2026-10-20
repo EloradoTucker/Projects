@@ -24,19 +24,19 @@
     <input type="number" id="bet"></p>
     <button onClick="placeBet()" id="bb">Bet</button>
     <p id="status"></p>
-    <br>
     <label>Your Hand:</label>
     <div id="yourHand">
-        <button class="c" id="c0" onClick="discard(0)">🂠</button>
-        <button class="c" id="c1" onClick="discard(1)">🂠</button>
-        <button class="c" id="c2" onClick="discard(2)">🂠</button>
-        <button class="c" id="c3" onClick="discard(3)">🂠</button>
-        <button class="c" id="c4" onClick="discard(4)">🂠</button>
+        <button class="c" id="c0" onClick="select(0)">🂠</button>
+        <button class="c" id="c1" onClick="select(1)">🂠</button>
+        <button class="c" id="c2" onClick="select(2)">🂠</button>
+        <button class="c" id="c3" onClick="select(3)">🂠</button>
+        <button class="c" id="c4" onClick="select(4)">🂠</button>
     </div>
+    <button id="disc" onClick="discard()">Discard</button>
 </body>
 <script>
     let money = 1000;
-    let cNum = 0;
+    let dCards = [];
     let yourHand = [];
     let deck = [
         {card: '🂡 ', point: 1, additionalpoint: 10},
@@ -181,14 +181,20 @@
         yourHand.push(deck[randomCard]);
         deck.splice(randomCard, 1);
     }
-    function discard(No) {
-        yourHand.splice(No, 1);
-        drawCards();
+    function select(No) {
+        dCards.push(no);
+        document.getElementById("c" + No).disabled = true;
+    }
+    function discard() {
+        const targets = dCards.sort((a, b) => b - a);
+        targets.forEach(index => {
+            yourHand.splice(index, 1);
+        });
+        targets.forEach(index => {
+            drawCards();
+        })
+        
         updateHand();
-        cNum += 1;
-        if (cNum >= 3) {
-            switchButtons(true);
-                }
     }
     function updateHand() {
         document.getElementById("c0").innerHTML = yourHand[0].card;
