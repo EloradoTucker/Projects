@@ -16,6 +16,7 @@
     }
     button:disabled {
         cursor: not-allowed;
+        background-color: lightgrey;
     }
 </style>
 
@@ -196,7 +197,7 @@
         }
         else {
             dCards.push(No);
-            document.getElementById("c" + No).style.backgroundColor = yellow;
+            document.getElementById("c" + No).style.backgroundColor = "yellow";
         }
     }
     function discard() {
