@@ -229,6 +229,7 @@
         if (checkNum(2).length > 0) {
             console.log("success");
         }
+        newBet();
     }
     function checkNum(n) {
 
@@ -241,6 +242,14 @@
         return Object.entries(counts)
             .filter(([value, count]) => count === n)
             .map(([value]) => Number(value));
+    }
+    function newBet() {
+        document.getElementById("bb").disabled = false;
+        document.getElementById("c0").innerHTML = "🂠";
+        document.getElementById("c1").innerHTML = "🂠";
+        document.getElementById("c2").innerHTML = "🂠";
+        document.getElementById("c3").innerHTML = "🂠";
+        document.getElementById("c4").innerHTML = "🂠";
     }
     function reset() {
         window.location.reload();
