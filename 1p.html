@@ -12,6 +12,7 @@
         cursor: grab;
         line-height: 1.2;
         color: black;
+        background-color: lightgreen;
     }
 </style>
 
@@ -94,6 +95,7 @@
     document.getElementById("money").innerHTML = money;
     document.getElementById("bb").disabled = false;
     switchButtons(true);
+
     function switchButtons(on) {
         const buttons = document.getElementsByClassName("c");
         for (let button of buttons) {
@@ -182,8 +184,17 @@
         deck.splice(randomCard, 1);
     }
     function select(No) {
-        dCards.push(No);
-        document.getElementById("c" + No).disabled = true;
+        if (dCards.includes(No)) {
+            const index = dCards.indexOf(No);
+            if (index !== -1) {
+                dCards.splice(index, 1);
+            }
+            document.getElementById("c" + No).style.backgroundColor = lightgreen;
+        }
+        else {
+            dCards.push(No);
+            document.getElementById("c" + No).style.backgroundColor = yellow;
+        }
     }
     function discard() {
         const targets = dCards.sort((a, b) => b - a);
@@ -194,6 +205,7 @@
             drawCards();
         })
         updateHand();
+        switchButtons(true);
         document.getElementById("disc").disabled = true;
         checkWin();
     }
@@ -210,7 +222,7 @@
         }
     }
     function checkNum(n) {
-        
+
         const counts = yourHand.reduce((acc, obj) => {
             const val = obj["point"];
             acc[val] = (acc[val] || 0) + 1;
@@ -218,8 +230,8 @@
         }, {});
 
         return Object.entries(counts)
-            .filter(([value, count]) => count === n) 
-            .map(([value]) => Number(value));      
+            .filter(([value, count]) => count === n)
+            .map(([value]) => Number(value));
     }
     function reset() {
         window.location.reload();
