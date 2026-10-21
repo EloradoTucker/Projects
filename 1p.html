@@ -219,11 +219,11 @@
         document.getElementById("c2").innerHTML = yourHand[2].card;
         document.getElementById("c3").innerHTML = yourHand[3].card;
         document.getElementById("c4").innerHTML = yourHand[4].card;
+        document.getElementById("c0").style.removeProperty('background-color');
         document.getElementById("c1").style.removeProperty('background-color');
-        document.getElementById("c1").style.removeProperty('background-color');
-        document.getElementById("c1").style.removeProperty('background-color');
-        document.getElementById("c1").style.removeProperty('background-color');
-        document.getElementById("c1").style.removeProperty('background-color');
+        document.getElementById("c2").style.removeProperty('background-color');
+        document.getElementById("c3").style.removeProperty('background-color');
+        document.getElementById("c4").style.removeProperty('background-color');
     }
     function checkWin() {
         if (checkNum(2) !== null) {
