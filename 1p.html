@@ -244,12 +244,15 @@
             .map(([value]) => Number(value));
     }
     function newBet() {
+        yourHand = [];
+        dCards = [];
         document.getElementById("bb").disabled = false;
         document.getElementById("c0").innerHTML = "🂠";
         document.getElementById("c1").innerHTML = "🂠";
         document.getElementById("c2").innerHTML = "🂠";
         document.getElementById("c3").innerHTML = "🂠";
         document.getElementById("c4").innerHTML = "🂠";
+        
     }
     function reset() {
         window.location.reload();
