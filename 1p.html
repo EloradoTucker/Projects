@@ -230,6 +230,7 @@
         document.getElementById("c4").style.removeProperty('background-color');
     }
     function checkWin() {
+        console.log("Previous money: " + money + " Bet: " + bet);
         if (checkNum(2).length == 0 && checkNum(3).length == 0 && checkNum(4).length == 0) {
             money -= bet;
         }
@@ -250,6 +251,7 @@
         if (checkNum(2).length == 1 && (checkNum(2)[0] < 11 || checkNum(2)[0] != 1)) {
             money -= bet;
         }
+        console.log(yourHand);
         newBet();
     }
     function checkNum(n) {
