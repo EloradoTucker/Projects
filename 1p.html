@@ -24,7 +24,7 @@
     <h1>Video Poker</h1>
     <p>(or 1 player poker)</p>
     <label>You have: $<span id="money"></span> </label><button onClick="reset()">Reset money.</button>
-    <br><br>
+    <br>
     <p>How much? Bet min is $2. Bet max is $500</p>
     <input type="number" id="bet"></p>
     <button onClick="placeBet()" id="bb">Bet</button>
@@ -37,7 +37,10 @@
         <button class="c" id="c3" onClick="select(3)">🂠</button>
         <button class="c" id="c4" onClick="select(4)">🂠</button>
     </div>
+    <br>
     <button id="disc" onClick="discard()">Discard</button>
+    <br>
+    <p>Jacks or Better to win</p>
 </body>
 <script>
     let money = 1000;
@@ -226,8 +229,22 @@
         document.getElementById("c4").style.removeProperty('background-color');
     }
     function checkWin() {
-        if (checkNum(2).length > 0) {
-            console.log("success");
+        if (checkNum(2).length == 0 && checkNum(3).length == 0 && checkNum(4).length == 0) {
+            money -= bet;
+        }
+        if (checkNum(4).length > 0) {
+            money = money + bet * 25;
+        }
+        if (checkNum(3).length == 1 && checkNum(2).length == 1) {
+            money = money + bet * 10;
+        }
+        if (checkNum(2).length == 2) {
+            money = money + bet * 2;
+        }
+        if (checkNum(2).length == 1 && checkNum(2)[0] > 10) {
+        }
+        if (checkNum(2).length == 1 && checkNum(2)[0] < 11) {
+            money -= bet;
         }
         newBet();
     }
@@ -247,7 +264,6 @@
         yourHand = [];
         dCards = [];
         document.getElementById("bb").disabled = false;
-        
     }
     function reset() {
         window.location.reload();
