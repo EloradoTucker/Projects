@@ -25,7 +25,7 @@
     <p>(or 1 player poker)</p>
     <label>You have: $<span id="money"></span> </label><button onClick="reset()">Reset money.</button>
     <br>
-    <p>How much? Bet min is $2. Bet max is $500</p>
+    <p>How much? Bet min is $2. Bet max is $100</p>
     <input type="number" id="bet"></p>
     <button onClick="placeBet()" id="bb">Bet</button>
     <p id="status"></p>
@@ -111,7 +111,7 @@
     }
     function placeBet() {
         bet = Number(document.getElementById("bet").value)
-        if ((bet <= 1) || (bet > 500) || (bet > money)) {
+        if ((bet <= 1) || (bet > 100) || (bet > money)) {
             document.getElementById("status").innerHTML = "Bet invalid. Try again."
             if (bet > money) {
                 document.getElementById("status").innerHTML = "You don't have enough money."
