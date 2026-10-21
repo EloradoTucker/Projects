@@ -39,58 +39,58 @@
     let dCards = [];
     let yourHand = [];
     let deck = [
-        {card: '🂡 ', point: 1, additionalpoint: 10},
-        {card: '🃑 ', point: 1, additionalpoint: 10},
-        {card: '🂱 ', point: 1, additionalpoint: 10},
-        {card: '🃁 ', point: 1, additionalpoint: 10},
-        {card: '🂢 ', point: 2, additionalpoint: 0},
-        {card: '🂲 ', point: 2, additionalpoint: 0},
-        {card: '🃂 ', point: 2, additionalpoint: 0},
-        {card: '🃒 ', point: 2, additionalpoint: 0},
-        {card: '🂣 ', point: 3, additionalpoint: 0},
-        {card: '🂳 ', point: 3, additionalpoint: 0},
-        {card: '🃃 ', point: 3, additionalpoint: 0},
-        {card: '🃓 ', point: 3, additionalpoint: 0},
-        {card: '🂤 ', point: 4, additionalpoint: 0},
-        {card: '🂴 ', point: 4, additionalpoint: 0},
-        {card: '🃄 ', point: 4, additionalpoint: 0},
-        {card: '🃔 ', point: 4, additionalpoint: 0},
-        {card: '🂥 ', point: 5, additionalpoint: 0},
-        {card: '🂵 ', point: 5, additionalpoint: 0},
-        {card: '🃅 ', point: 5, additionalpoint: 0},
-        {card: '🃕 ', point: 5, additionalpoint: 0},
-        {card: '🂦 ', point: 6, additionalpoint: 0},
-        {card: '🂶 ', point: 6, additionalpoint: 0},
-        {card: '🃆 ', point: 6, additionalpoint: 0},
-        {card: '🃖 ', point: 6, additionalpoint: 0},
-        {card: '🂧 ', point: 7, additionalpoint: 0},
-        {card: '🂷 ', point: 7, additionalpoint: 0},
-        {card: '🃇 ', point: 7, additionalpoint: 0},
-        {card: '🃗 ', point: 7, additionalpoint: 0},
-        {card: '🂨 ', point: 8, additionalpoint: 0},
-        {card: '🂸 ', point: 8, additionalpoint: 0},
-        {card: '🃈 ', point: 8, additionalpoint: 0},
-        {card: '🃘 ', point: 8, additionalpoint: 0},
-        {card: '🂩 ', point: 9, additionalpoint: 0},
-        {card: '🂹 ', point: 9, additionalpoint: 0},
-        {card: '🃉 ', point: 9, additionalpoint: 0},
-        {card: '🃙 ', point: 9, additionalpoint: 0},
-        {card: '🂪 ', point: 10, additionalpoint: 0},
-        {card: '🂺 ', point: 10, additionalpoint: 0},
-        {card: '🃊 ', point: 10, additionalpoint: 0},
-        {card: '🃚 ', point: 10, additionalpoint: 0},
-        {card: '🂫 ', point: 10, additionalpoint: 0},
-        {card: '🂻 ', point: 10, additionalpoint: 0},
-        {card: '🃋 ', point: 10, additionalpoint: 0},
-        {card: '🃛 ', point: 10, additionalpoint: 0},
-        {card: '🂭 ', point: 10, additionalpoint: 0},
-        {card: '🂽 ', point: 10, additionalpoint: 0},
-        {card: '🃍 ', point: 10, additionalpoint: 0},
-        {card: '🃝 ', point: 10, additionalpoint: 0},
-        {card: '🂮 ', point: 10, additionalpoint: 0},
-        {card: '🂾 ', point: 10, additionalpoint: 0},
-        {card: '🃎 ', point: 10, additionalpoint: 0},
-        {card: '🃞 ', point: 10, additionalpoint: 0}];
+        {card: '🂡 ', point: 1},
+        {card: '🃑 ', point: 1},
+        {card: '🂱 ', point: 1},
+        {card: '🃁 ', point: 1},
+        {card: '🂢 ', point: 2},
+        {card: '🂲 ', point: 2},
+        {card: '🃂 ', point: 2},
+        {card: '🃒 ', point: 2},
+        {card: '🂣 ', point: 3},
+        {card: '🂳 ', point: 3},
+        {card: '🃃 ', point: 3},
+        {card: '🃓 ', point: 3},
+        {card: '🂤 ', point: 4},
+        {card: '🂴 ', point: 4},
+        {card: '🃄 ', point: 4},
+        {card: '🃔 ', point: 4},
+        {card: '🂥 ', point: 5},
+        {card: '🂵 ', point: 5},
+        {card: '🃅 ', point: 5},
+        {card: '🃕 ', point: 5},
+        {card: '🂦 ', point: 6},
+        {card: '🂶 ', point: 6},
+        {card: '🃆 ', point: 6},
+        {card: '🃖 ', point: 6},
+        {card: '🂧 ', point: 7},
+        {card: '🂷 ', point: 7},
+        {card: '🃇 ', point: 7},
+        {card: '🃗 ', point: 7},
+        {card: '🂨 ', point: 8},
+        {card: '🂸 ', point: 8},
+        {card: '🃈 ', point: 8},
+        {card: '🃘 ', point: 8},
+        {card: '🂩 ', point: 9},
+        {card: '🂹 ', point: 9},
+        {card: '🃉 ', point: 9},
+        {card: '🃙 ', point: 9},
+        {card: '🂪 ', point: 10},
+        {card: '🂺 ', point: 10},
+        {card: '🃊 ', point: 10},
+        {card: '🃚 ', point: 10},
+        {card: '🂫 ', point: 10},
+        {card: '🂻 ', point: 10},
+        {card: '🃋 ', point: 10},
+        {card: '🃛 ', point: 10},
+        {card: '🂭 ', point: 10},
+        {card: '🂽 ', point: 10},
+        {card: '🃍 ', point: 10},
+        {card: '🃝 ', point: 10},
+        {card: '🂮 ', point: 10},
+        {card: '🂾 ', point: 10},
+        {card: '🃎 ', point: 10},
+        {card: '🃞 ', point: 10}];
     document.getElementById("money").innerHTML = money;
     document.getElementById("bb").disabled = false;
     switchButtons(true);
@@ -116,58 +116,58 @@
     }
     function drawHand() {
         deck = [
-            {card: '🂡 ', point: 1, additionalpoint: 10},
-            {card: '🃑 ', point: 1, additionalpoint: 10},
-            {card: '🂱 ', point: 1, additionalpoint: 10},
-            {card: '🃁 ', point: 1, additionalpoint: 10},
-            {card: '🂢 ', point: 2, additionalpoint: 0},
-            {card: '🂲 ', point: 2, additionalpoint: 0},
-            {card: '🃂 ', point: 2, additionalpoint: 0},
-            {card: '🃒 ', point: 2, additionalpoint: 0},
-            {card: '🂣 ', point: 3, additionalpoint: 0},
-            {card: '🂳 ', point: 3, additionalpoint: 0},
-            {card: '🃃 ', point: 3, additionalpoint: 0},
-            {card: '🃓 ', point: 3, additionalpoint: 0},
-            {card: '🂤 ', point: 4, additionalpoint: 0},
-            {card: '🂴 ', point: 4, additionalpoint: 0},
-            {card: '🃄 ', point: 4, additionalpoint: 0},
-            {card: '🃔 ', point: 4, additionalpoint: 0},
-            {card: '🂥 ', point: 5, additionalpoint: 0},
-            {card: '🂵 ', point: 5, additionalpoint: 0},
-            {card: '🃅 ', point: 5, additionalpoint: 0},
-            {card: '🃕 ', point: 5, additionalpoint: 0},
-            {card: '🂦 ', point: 6, additionalpoint: 0},
-            {card: '🂶 ', point: 6, additionalpoint: 0},
-            {card: '🃆 ', point: 6, additionalpoint: 0},
-            {card: '🃖 ', point: 6, additionalpoint: 0},
-            {card: '🂧 ', point: 7, additionalpoint: 0},
-            {card: '🂷 ', point: 7, additionalpoint: 0},
-            {card: '🃇 ', point: 7, additionalpoint: 0},
-            {card: '🃗 ', point: 7, additionalpoint: 0},
-            {card: '🂨 ', point: 8, additionalpoint: 0},
-            {card: '🂸 ', point: 8, additionalpoint: 0},
-            {card: '🃈 ', point: 8, additionalpoint: 0},
-            {card: '🃘 ', point: 8, additionalpoint: 0},
-            {card: '🂩 ', point: 9, additionalpoint: 0},
-            {card: '🂹 ', point: 9, additionalpoint: 0},
-            {card: '🃉 ', point: 9, additionalpoint: 0},
-            {card: '🃙 ', point: 9, additionalpoint: 0},
-            {card: '🂪 ', point: 10, additionalpoint: 0},
-            {card: '🂺 ', point: 10, additionalpoint: 0},
-            {card: '🃊 ', point: 10, additionalpoint: 0},
-            {card: '🃚 ', point: 10, additionalpoint: 0},
-            {card: '🂫 ', point: 10, additionalpoint: 0},
-            {card: '🂻 ', point: 10, additionalpoint: 0},
-            {card: '🃋 ', point: 10, additionalpoint: 0},
-            {card: '🃛 ', point: 10, additionalpoint: 0},
-            {card: '🂭 ', point: 10, additionalpoint: 0},
-            {card: '🂽 ', point: 10, additionalpoint: 0},
-            {card: '🃍 ', point: 10, additionalpoint: 0},
-            {card: '🃝 ', point: 10, additionalpoint: 0},
-            {card: '🂮 ', point: 10, additionalpoint: 0},
-            {card: '🂾 ', point: 10, additionalpoint: 0},
-            {card: '🃎 ', point: 10, additionalpoint: 0},
-            {card: '🃞 ', point: 10, additionalpoint: 0}];
+            {card: '🂡 ', point: 1},
+            {card: '🃑 ', point: 1},
+            {card: '🂱 ', point: 1},
+            {card: '🃁 ', point: 1},
+            {card: '🂢 ', point: 2},
+            {card: '🂲 ', point: 2},
+            {card: '🃂 ', point: 2},
+            {card: '🃒 ', point: 2},
+            {card: '🂣 ', point: 3},
+            {card: '🂳 ', point: 3},
+            {card: '🃃 ', point: 3},
+            {card: '🃓 ', point: 3},
+            {card: '🂤 ', point: 4},
+            {card: '🂴 ', point: 4},
+            {card: '🃄 ', point: 4},
+            {card: '🃔 ', point: 4},
+            {card: '🂥 ', point: 5},
+            {card: '🂵 ', point: 5},
+            {card: '🃅 ', point: 5},
+            {card: '🃕 ', point: 5},
+            {card: '🂦 ', point: 6},
+            {card: '🂶 ', point: 6},
+            {card: '🃆 ', point: 6},
+            {card: '🃖 ', point: 6},
+            {card: '🂧 ', point: 7},
+            {card: '🂷 ', point: 7},
+            {card: '🃇 ', point: 7},
+            {card: '🃗 ', point: 7},
+            {card: '🂨 ', point: 8},
+            {card: '🂸 ', point: 8},
+            {card: '🃈 ', point: 8},
+            {card: '🃘 ', point: 8},
+            {card: '🂩 ', point: 9},
+            {card: '🂹 ', point: 9},
+            {card: '🃉 ', point: 9},
+            {card: '🃙 ', point: 9},
+            {card: '🂪 ', point: 10},
+            {card: '🂺 ', point: 10},
+            {card: '🃊 ', point: 10},
+            {card: '🃚 ', point: 10},
+            {card: '🂫 ', point: 11},
+            {card: '🂻 ', point: 11},
+            {card: '🃋 ', point: 11},
+            {card: '🃛 ', point: 11},
+            {card: '🂭 ', point: 12},
+            {card: '🂽 ', point: 12},
+            {card: '🃍 ', point: 12},
+            {card: '🃝 ', point: 12},
+            {card: '🂮 ', point: 13},
+            {card: '🂾 ', point: 13},
+            {card: '🃎 ', point: 13},
+            {card: '🃞 ', point: 13}];
 
         drawCards();
         drawCards();
@@ -195,6 +195,7 @@
         })
         updateHand();
         document.getElementById("disc").disabled = true;
+        checkWin();
     }
     function updateHand() {
         document.getElementById("c0").innerHTML = yourHand[0].card;
@@ -202,6 +203,23 @@
         document.getElementById("c2").innerHTML = yourHand[2].card;
         document.getElementById("c3").innerHTML = yourHand[3].card;
         document.getElementById("c4").innerHTML = yourHand[4].card;
+    }
+    function checkWin() {
+        if (checkNum(2) !== null) {
+            console.log("success")
+        }
+    }
+    function checkNum(n) {
+        
+        const counts = yourHand.reduce((acc, obj) => {
+            const val = obj["point"];
+            acc[val] = (acc[val] || 0) + 1;
+            return acc;
+        }, {});
+
+        return Object.entries(counts)
+            .filter(([value, count]) => count === n) 
+            .map(([value]) => Number(value));      
     }
     function reset() {
         window.location.reload();
